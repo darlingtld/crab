@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="AdminModule">
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理员</title>
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/pagination.css" rel="stylesheet">
+    <link href="../css/manage.css" rel="stylesheet">
+    <link rel="stylesheet" href="../javascript/mobiscroll/css/mobiscroll.frame.sense-ui.css" type="text/css"/>
+    <link rel="stylesheet" href="../javascript/mobiscroll/css/mobiscroll.mobiscroll-dark.css" type="text/css"/>
+    <link rel="stylesheet" href="../javascript/mobiscroll/css/mobiscroll.animation.css" type="text/css"/>
+    <link rel="stylesheet" href="../javascript/mobiscroll/css/mobiscroll.icons.css" type="text/css"/>
+    <link rel="stylesheet" href="../javascript/mobiscroll/css/mobiscroll.frame.css" type="text/css"/>
+    <link rel="stylesheet" href="../javascript/mobiscroll/css/mobiscroll.scroller.css" type="text/css"/>
+    <link rel="stylesheet" href="../javascript/mobiscroll/css/mobiscroll.scroller.sense-ui.css" type="text/css"/>
+    <link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/jquery-ui.min.css" type="text/css"/>
+    <style>
+        input {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li role="manage_product"><a href="#/product">菜品管理</a></li>
+        <li role="manage_order"><a href="#/order">订单管理</a></li>
+        <li role="manage_dispatch"><a href="#/dispatch">配送管理</a></li>
+        <li role="manage_coupon"><a href="#/coupon">卡券管理</a></li>
+        <li role="manage_message"><a href="#/message">消息管理</a></li>
+    </ul>
+</div>
+<ng-view></ng-view>
+
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="../bower_components/angular/angular.min.js" type="text/javascript"></script>
+<script src="../bower_components/angular-route/angular-route.js" type="text/javascript"></script>
+<script src="js/service.js"></script>
+<script src="js/manage.js"></script>
+<script  src="../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!--mobiscroll-->
+<script type="text/javascript" src="../javascript/mobiscroll/js/mobiscroll.core.js"></script>
+<script type="text/javascript" src="../javascript/mobiscroll/js/mobiscroll.frame.js"></script>
+<script type="text/javascript" src="../javascript/mobiscroll/js/mobiscroll.scroller.js"></script>
+<script type="text/javascript" src="../javascript/mobiscroll/js/mobiscroll.util.datetime.js"></script>
+<script type="text/javascript" src="../javascript/mobiscroll/js/mobiscroll.datetimebase.js"></script>
+<script type="text/javascript" src="../javascript/mobiscroll/js/mobiscroll.datetime.js"></script>
+<script type="text/javascript" src="../javascript/mobiscroll/js/mobiscroll.select.js"></script>
+<script type="text/javascript" src="../javascript/mobiscroll/js/i18n/mobiscroll.i18n.zh.js"></script>
+</body>
+</html>

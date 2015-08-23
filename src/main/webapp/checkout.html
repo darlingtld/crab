@@ -1,0 +1,39 @@
+<div class="row row-sm" ng-repeat="item in bill.items">
+    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+        <div class="item">
+            <div class="pos-rlt">
+                <div class="bottom">
+                    <span class="badge bg-info m-l-sm m-b-sm">
+                        <span ng-bind="item.productPrice"></span>元/<span
+                            ng-bind="item.productUnit"></span></span>
+                    <!--<span class="badge bg-danger m-r-sm m-b-sm">-->
+                    <!--<span ng-bind="item.productName"></span>-->
+                    <!--</span>-->
+
+                </div>
+
+                <img ng-src="{{item.picurl}}" alt="" class="r r-2x img-full height-normalize-checkout">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+        <div class="checkout_info">
+            <div class="basic_info" ng-bind="item.description"></div>
+            <div class="amount">购买：<span ng-bind="item.amount"></span> <span ng-bind="item.productUnit"></span></div>
+            <div class="price">价格：<span ng-bind="item.amount*item.productPrice | number : 2"></span> 元
+            </div>
+            <div class="inc_dec"><input spinner-instance="{{item.amount}}" disabled/></div>
+            <input class="product_id" data-product_id="{{item.productId}}" type="hidden"/>
+            <input class="product_description" data-product_description="{{item.description}}" type="hidden"/>
+            <input class="product_name" data-product_name="{{item.productName}}" type="hidden"/>
+            <input class="product_price" data-product_price="{{item.productPrice}}" type="hidden"/>
+            <input class="product_unit" data-product_unit="{{item.productUnit}}" type="hidden"/>
+            <input class="product_picurl" data-product_picurl="{{item.picurl}}" type="hidden"/>
+            <input class="product_amount" data-product_amount="{{item.amount}}" type="hidden"/>
+        </div>
+    </div>
+
+</div>
+<div class="row row-sm">
+    <div class="placeholder"></div>
+</div>

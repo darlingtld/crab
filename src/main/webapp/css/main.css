@@ -1,0 +1,286 @@
+.menu-icon {
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+}
+
+.menu-icon span {
+    font-size: x-large;
+    margin-top: 5px;
+}
+
+.back {
+    text-decoration: none;
+    display: inline-block;
+    float: right;
+}
+
+.back span {
+    font-size: x-large;
+    margin-top: 5px;
+}
+
+.logo {
+    display: inline-block;
+}
+
+.user-icon {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    max-height: 35px;
+    /*margin-left: 50%;*/
+}
+
+.msg {
+    float: right;
+    color: #019bb8;
+}
+
+.home {
+    float: left;
+    color: #dfb16d;
+}
+
+.home span, .msg span {
+    margin-top: 30%;
+    font-size: large;
+}
+
+.notification {
+    display: inline;
+    color: red;
+}
+
+.navbar-category {
+    width: 200%;
+}
+
+.navbar-category ul {
+    padding: 0px;
+}
+
+.navbar-category li {
+    font-size: large;
+    float: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-type {
+    margin: 30px 0px 0px 10px;
+    width: 25%;
+    float: left;
+    position: fixed;
+
+}
+
+.navbar-type ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.navbar-type ul > li {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0px 5px 0px;
+    font-size: large;
+}
+
+.navbar-type-content {
+    width: 75%;
+    display: inline-block;
+    float: right;
+    margin-top: 75px;
+    border-left: 2px solid greenyellow;
+}
+
+.block {
+    display: block;
+}
+
+.product-img {
+    /*margin: 5px 10px 0px 10px*/
+    width: 100%;
+}
+
+.item > div {
+    padding: 5px;
+    border-bottom: 1px solid lightgray
+}
+
+.product_content span {
+    font-weight: bold;
+    font-size: medium;
+    margin: 5px 0px 0px 5px;
+}
+
+button.increase {
+    background-color: white;
+    color: green;
+    border: 1px solid green;
+}
+
+button.decrease {
+    background-color: white;
+    color: rgb(69, 201, 59);
+    border: 1px solid rgb(69, 201, 59);
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+}
+
+.incr_decr_bar {
+    text-align: right;
+    margin-right: 10px;
+    display: inline-block;
+
+}
+
+.incr_decr_bar > span {
+    float: left;
+    line-height: 2;
+    margin-left: 10px;
+}
+
+.item_bought {
+    color: red;
+
+}
+
+.checkout {
+    height: 60px;
+    width: 100%;
+    display: table;
+}
+
+.checkout div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+div.checkout_info {
+    margin-top: 20px;
+}
+
+.placeholder {
+    height: 120px;
+}
+
+.js-content {
+    /*margin-top: 40px;*/
+}
+
+table.register input {
+    width: 100%;
+}
+
+table.register td {
+    vertical-align: middle;
+}
+
+table.register span {
+    display: inline-block;
+}
+
+.message {
+    text-align: center;
+    border: 2px solid #a1a1a1;
+    padding: 10px 40px;
+    background: cornsilk;
+    background-size: cover;
+    width: 100%;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 80px;
+    margin-top: 10px;
+}
+
+.message-info {
+    color: darkcyan;
+    display: block;
+    font-family: fantasy;
+    font-size: large;
+}
+
+.message-ts {
+    display: block;
+    font-size: small;
+    text-align: left;
+}
+
+.shelf {
+    background-color: whitesmoke;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+    margin-bottom: 10px;
+}
+
+.shelf img {
+    width: 97%;
+}
+
+.item-info {
+    font-size: x-large;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.item-price {
+    color: rgba(227, 95, 23, 0.9);
+    font-size: large;
+    font-weight: bold;
+    margin-left: 20px;
+    align-self: center;
+
+}
+
+body {
+    background-color: lightgrey;
+}
+
+.orange {
+    color: whitesmoke;
+    background-color: rgba(227, 95, 23, 0.9);
+}
+
+.fakegood {
+    margin-left: 10px;
+    font-size: small;
+}
+
+.fakegood > span:nth-child(odd) {
+    margin-left: 10px;
+}
+
+.fakegood > span:nth-child(even) {
+    margin-left: 5px;
+}
+
+.details {
+    padding: 10px;
+}
+
+.logo-mark {
+    margin-top: 30px;
+}
+
+.logo-mark img {
+    width: 10%;
+}
+
+.logo-mark span {
+    font-size: small;
+    font-style: oblique;
+}
+
+.green {
+    color: lightgreen;
+}

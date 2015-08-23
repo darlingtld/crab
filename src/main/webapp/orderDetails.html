@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<br/>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <td colspan="2">
+                <i class="icon-basket-loaded i-lg"></i>
+                <span class="text-success">&nbsp;&nbsp;订单摘要</span>
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-info">订单时间</span></td>
+            <td><span ng-bind="orderDetail.orderTs"></span></td>
+        </tr>
+        <tr>
+            <td><span class="text-info">配送时间</span></td>
+            <td><span ng-bind="orderDetail.deliveryTs"></span></td>
+        </tr>
+        <tr>
+            <td><span class="text-info">买家信息</span></td>
+            <td><span ng-bind="orderDetail.buyerInfo"></span></td>
+        </tr>
+        <tr>
+            <td><span class="text-info">买家地址</span></td>
+            <td><span ng-bind="orderDetail.buyerAddress"></span></td>
+        </tr>
+        <tr>
+            <td><span class="text-info">收件人</span></td>
+            <td><span ng-bind="orderDetail.consignee"></span></td>
+        </tr>
+        <tr>
+            <td><span class="text-info">联系电话</span></td>
+            <td><span ng-bind="orderDetail.consigneeContact"></span></td>
+        </tr>
+        <tr>
+            <td><span class="text-info">状态</span></td>
+            <td><span ng-bind="orderDetail.status"></span></td>
+        </tr>
+        <tr>
+        <td><span class="text-info">品类总数</span></td>
+        <td><span ng-bind="itemAmount"></span></td>
+        </tr>
+        <tr>
+            <td><span class="text-info">物件总价</span></td>
+            <td><span ng-bind="(total.totalPrice | number : 2)"></span></td>
+        </tr>
+
+        <tr>
+            <td><span class="text-info">物件总价(实际）</span></td>
+            <td><span ng-bind="(actTotal.totalPrice | number : 2)"></span></td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <td colspan="2">
+                <i class="icon-basket-loaded i-lg"></i>
+                <span class="text-success">&nbsp;&nbsp;订单详情</span>
+            </td>
+        </tr>
+        <tbody ng-repeat="item in items">
+        <tr>
+            <td style="width: 50%; text-align: center; vertical-align: middle" rowspan="3">
+                <img ng-src="{{item.picurl}}" style="width: 30%;"/>
+            </td>
+            <td>商品名称：<span ng-bind="item.productName"></span></td>
+        </tr>
+        <tr>
+            <td>商品单价：<span ng-bind="item.productPrice"></span>元/<span ng-bind="item.productUnit"></span></td>
+        </tr>
+        <tr>
+            <td>商品数量：<span ng-bind="item.amount"></span><span ng-bind="item.productUnit"></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row row-sm">
+    <div style="height: 80px;"></div>
+</div>
+
+</body>
+</html>

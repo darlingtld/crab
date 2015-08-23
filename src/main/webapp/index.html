@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="CtModule">
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8">
+    <title>缘众大闸蟹</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/preview.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="javascript/mobiscroll/css/mobiscroll.frame.sense-ui.css" type="text/css"/>
+    <link rel="stylesheet" href="javascript/mobiscroll/css/mobiscroll.mobiscroll-dark.css" type="text/css"/>
+    <link rel="stylesheet" href="javascript/mobiscroll/css/mobiscroll.animation.css" type="text/css"/>
+    <link rel="stylesheet" href="javascript/mobiscroll/css/mobiscroll.icons.css" type="text/css"/>
+    <link rel="stylesheet" href="javascript/mobiscroll/css/mobiscroll.frame.css" type="text/css"/>
+    <link rel="stylesheet" href="javascript/mobiscroll/css/mobiscroll.scroller.css" type="text/css"/>
+    <link rel="stylesheet" href="javascript/mobiscroll/css/mobiscroll.scroller.sense-ui.css" type="text/css"/>
+
+
+</head>
+<body ng-controller="mainController">
+<div class="navbar-fixed-top">
+    <div style='padding: 5px 10px;text-align: center;' class="js-search-bar bg-info">
+
+        <div class="home">
+            <a href="#/nav"><span class="glyphicon glyphicon-home" aria-hidden="true" style="color: rgba(34, 49, 67, 0.5);"></span></a>
+        </div>
+
+        <div class="logo" ng-click="clearAndReload()">
+            <img class="user-icon" src="images/head.jpg"/>
+        </div>
+        <div class="msg">
+            <a href="#/message"><span class="glyphicon glyphicon-envelope" aria-hidden="true" style="color: #b7dfc9;"></span></a>
+
+            <div class="notification"><span id="message_count"></span></div>
+        </div>
+    </div>
+</div>
+<div class="js-content">
+    <div id="mainListBlock" class="fl scroll-y"
+         style="position:relative;height:100%;width:100%;-webkit-overflow-scrolling: touch;">
+
+        <ng-view></ng-view>
+    </div>
+
+    <div class="clear"></div>
+</div>
+<footer class="footer bg-dark nav-bar-fixed-bottom">
+    <div class="checkout">
+        <div><span class="glyphicon glyphicon-shopping-cart" ng-click="clearAndReload()"></span>
+        </div>
+        <div>
+            物件数：<span id="totalAmount">0</span>件
+        </div>
+
+        <div>
+            总价：<span id="totalPrice">0</span>元
+        </div>
+        <div style="text-align: center;"><a class="next btn btn-info" href="#/checkout">下一步</a>
+        </div>
+    </div>
+</footer>
+
+<!--js load -->
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+<script type="text/javascript" src="javascript/all.js"></script>
+<script type="text/javascript" src="javascript/main.js"></script>
+<script type="text/javascript" src="javascript/spinner.js"></script>
+<script type="text/javascript" src="javascript/test.js"></script>
+<!--mobiscroll-->
+<script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.core.js"></script>
+<script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.frame.js"></script>
+<script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.scroller.js"></script>
+<script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.util.datetime.js"></script>
+<script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.datetimebase.js"></script>
+<script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.datetime.js"></script>
+<script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.select.js"></script>
+<script type="text/javascript" src="javascript/mobiscroll/js/i18n/mobiscroll.i18n.zh.js"></script>
+
+</body>
+</html>

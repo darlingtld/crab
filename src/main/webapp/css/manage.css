@@ -1,0 +1,49 @@
+th:hover {
+    cursor: pointer;
+}
+
+select.product-picker {
+    display: block;
+    margin: 20px 0px 10px 0px;
+
+}
+
+/*#export_order, #export_dispatch {*/
+    /*margin-top: 20px;*/
+/*}*/
+
+.menu-product {
+    margin-top: 20px;
+}
+
+.export_button{
+    margin-top: 20px;
+    float: right;
+}
+
+#sortable span {
+    padding: 10px;
+}
+
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /*width: 60%;*/
+}
+
+#sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 1.4em;
+    /*height: 28px;*/
+}
+
+#sortable  {
+    margin-top: 20px;
+}
+
+div.upload_file{
+    display: none;
+}

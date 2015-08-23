@@ -1,0 +1,70 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="createsh,event"/>
+
+    <mvc:annotation-driven/>
+    <tx:annotation-driven/>
+    <aop:aspectj-autoproxy/>
+    <bean class="createsh.advice.MethodAdvice"></bean>
+    <bean class="createsh.advice.StatAdvice"></bean>
+
+    <mvc:resources location="/" mapping="/**"/>
+
+    <context:property-placeholder ignore-unresolvable="true" location="classpath*:/wechat.properties"/>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="${mysql.url}"/>
+        <property name="username" value="${mysql.username}"/>
+        <property name="password" value="${mysql.password}"/>
+    </bean>
+
+
+    <!-- Hibernate 4 SessionFactory Bean definition -->
+    <bean id="hibernate4AnnotatedSessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>createsh.pojo.Product</value>
+                <value>createsh.pojo.Order</value>
+                <value>createsh.pojo.User</value>
+                <value>createsh.pojo.Procurement</value>
+                <value>event.coupon.pojo.Coupon</value>
+                <value>event.coupon.pojo.Voucher</value>
+                <value>event.coupon.pojo.Discount</value>
+                <value>event.message.pojo.Message</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
+                <prop key="hibernate.dialect">createsh.util.MySQL5LocalDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <!--<task:scheduled-tasks scheduler="myScheduler">-->
+    <!--<task:scheduled ref="productCrawler" method="crawl" cron="0 0 1 * * ?"/>-->
+    <!--<task:scheduled ref="imageCrawler" method="fullfillImages" cron="0 0 */1 * * ?"/>-->
+    <!--</task:scheduled-tasks>-->
+    <!--<task:scheduler id="myScheduler" pool-size="4"/>-->
+
+</beans>

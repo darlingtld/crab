@@ -1,0 +1,111 @@
+<div class="container">
+    <!--pagination-->
+    <div id="pagination" style="float: right;" class="pagination"></div>
+    <!--<span class="pagination" style="float: right;">-->
+    <!--每页显示：<input type="text" style="width: 40%" id="numPerPage" onkeydown="paginationEnter(event, $(this).val());"-->
+    <!--value="10"> 个-->
+    <!--</span>-->
+    <!--Service Table-->
+
+    <button id="export_order" class="btn btn-success btn-sm export_button" ng-click="export()">导出Excel</button>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th ng-click="f='userId'; rev=!rev">用户名 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='orderTs'; rev=!rev">订单时间 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='deliveryTs'; rev=!rev">配送时间 <span class="glyphicon glyphicon-sort"
+                                                               aria-hidden="true"></span></th>
+            <th ng-click="f='buyerInfo'; rev=!rev">门店信息 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='consignee'; rev=!rev">收货人 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='consigneeContact'; rev=!rev">联系方式 <span class="glyphicon glyphicon-sort"
+                                                                     aria-hidden="true"></span></th>
+            <th ng-click="f='status'; rev=!rev">状态 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            </th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="orderInfoList">
+        <tr ng-repeat="order in orders | orderBy: f : rev">
+            <input type="hidden" value="order.id">
+            <td>{{order.userId}}</td>
+            <td>{{order.orderTs}}</td>
+            <td>{{order.deliveryTs}}</td>
+            <td>{{order.buyerInfo}}</td>
+            <td>{{order.consignee}}</td>
+            <td>{{order.consigneeContact}}</td>
+            <td>{{order.status}}</td>
+            <td>
+                <button ng-click="modify(order.id)" class="update-order btn btn-warning btn-md-width"
+                        data-toggle="modal"
+                        data-target="#myDialog">修改
+                </button>
+                <a href="orderDetails.html?id={{order.id}}" class="btn btn-success btn-md-width">查看</a>
+                <button ng-click="delete(order.id)" class="btn btn-danger btn-md-width">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+<div id="myDialog" class="modal fade" method="update" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+
+                <h3>修改订单</h3>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="oid">
+
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">用户名称:</span>
+                    <input type="text" class="form-control" id="userId">
+                </div>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">订单时间:</span>
+                    <input type="text" class="form-control" id="orderTs">
+                </div>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">配送时间:</span>
+                    <input type="text" class="form-control" id="deliveryTs">
+                </div>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">商户信息:</span>
+                    <input type="text" class="form-control" id="buyerInfo">
+                </div>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">商户地址:</span>
+                    <input type="text" class="form-control" id="buyerAddress">
+                </div>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">收货的人:</span>
+                    <input type="text" class="form-control" id="consignee">
+                </div>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">联系方式:</span>
+                    <input type="text" class="form-control" id="consigneeContact">
+                </div>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">订单状态:</span>
+                    <select id="orderStatus" class="form-control" style="width:100%;">
+                        <option value="未配送">未配送</option>
+                        <option value="配送中">配送中</option>
+                        <option value="已配送（未付款）">已配送（未付款）</option>
+                        <option value="已配送（已付款）">已配送（已付款）</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success" ng-click="save()">保存</a>
+                <a href="#" class="btn btn-danger" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>

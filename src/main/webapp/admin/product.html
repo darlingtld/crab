@@ -1,0 +1,185 @@
+<div class="container">
+
+    <button id="add_product" class="menu-product btn btn-info btn-sm" ng-click="create()" data-toggle="modal"
+            data-target="#uploadDialog">新增商品
+    </button>
+    <button id="sort_product" class="menu-product btn btn-primary btn-sm" ng-click="sort()">修改顺序
+    </button>
+
+    <button id="save_sort" class="menu-product btn btn-primary btn-sm" ng-click="saveSort()" style="display: none">保存顺序
+    </button>
+
+    <button id="export_product" class="menu-product btn btn-success btn-sm export_button" ng-click="export()">导出Excel</button>
+    <select class="product-picker form-control" ng-model="categorySelected" ng-change="changedValue(categorySelected)">
+
+    </select>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>名字</th>
+            <th>描述</th>
+            <th>大类</th>
+            <th>小类</th>
+            <th>采购价（元）</th>
+            <th>利润系数</th>
+            <th>出售价格（元）</th>
+            <th>单位</th>
+            <th class="operation">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="product in products">
+            <td ng-bind="product.name"></td>
+            <td ng-bind="product.description"></td>
+            <td ng-bind="(product.type | translate:'t' )"></td>
+            <td ng-bind="(product.category | translate :'c' )"></td>
+            <td><input class="form-control" value="{{product.procprice}}" ng-model='product.procprice'
+                       ng-change="updateProduct()"></td>
+            <td><input class="form-control" value="{{product.procindex}}" ng-model='product.procindex'
+                       ng-change="updateProduct()"></td>
+            <td ng-bind="product.price"></td>
+            <td ng-bind="product.unit"></td>
+            <td class="operation">
+                <button ng-click="modify(product.id)" class="btn btn-primary btn-sm" data-toggle="modal"
+                        data-target="#myDialog">修改
+                </button>
+                <button ng-click="delete(product.id)" class="btn btn-danger btn-sm">删除</button>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul id="sortable" hidden>
+
+        <li class="ui-state-default" ng-repeat="product in products">
+            <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            <span class="productId" ng-bind="product.id" hidden></span>
+            <span ng-bind="product.name"></span>
+            <span ng-bind="product.description"></span>
+            <span ng-bind="(product.type | translate:'t' )"></span>
+            <span ng-bind="(product.category | translate :'c' )"></span>
+            <span ng-bind="product.procprice"></span>
+            <span ng-bind="product.procindex"></span>
+            <span ng-bind="product.price"></span>
+            <span ng-bind="product.unit"></span>
+            <span class="orderIndex" ng-bind="$index"></span>
+        </li>
+    </ul>
+
+</div>
+<div id="myDialog" class="modal fade" method="update" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+
+                <h3 class="title">修改菜品</h3>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="pid">
+
+                <div class="input-group input-group">
+                    <span class="input-group-addon">名字:</span>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">描述:</span>
+                    <input type="text" class="form-control" id="description">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">大类:</span>
+                    <select id="type" ng-model="selectedType" ng-options="t.name for t in typeMap track by t.value"
+                            class="form-control"  style="color: red;">
+                        <option value="">--- 请选择 ---</option>
+                    </select>
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">小类:</span>
+                    <select id="category" ng-model="selectedCategory"
+                            ng-options="c.key for c in selectedType.list track by c.value"
+                            class="form-control" style="color: red;">
+                        <option value="">--- 请选择 ---</option>
+                    </select>
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">价格:</span>
+                    <input type="text" class="form-control" id="price">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">单位:</span>
+                    <input type="text" class="form-control" id="unit">
+                </div>
+                <div class="input-group input-group" style="display: table;">
+                    <span class="input-group-addon">图片:</span>
+                    <img id="pic" width="120px" style="margin-left: 30%;"/>
+                    <button class="btn btn-info btn-sm" ng-click="modifyPic()" style="margin-left: 20%;">修改图片</button>
+                    <div class="upload_file">
+                        <input type="file" class="form-control" id="ppic">
+                        <span style="color: red;">请上传300x300 50KB以下的jpg图片</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success" ng-click="save()">保存</a>
+                <a href="#" class="btn" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="uploadDialog" class="modal fade" method="upload" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+
+                <h3 class="title">新增菜品</h3>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group">
+                    <span class="input-group-addon">名字:</span>
+                    <input type="text" class="form-control" id="uname">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">描述:</span>
+                    <input type="text" class="form-control" id="udescription">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">大类:</span>
+                    <select id="utype" ng-model="selectedType" ng-options="t.name for t in typeMap track by t.value"
+                            class="form-control"  style="color: red;">
+                        <option value="">--- 请选择 ---</option>
+                    </select>
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">小类:</span>
+                    <select id="ucategory" ng-model="selectedCategory"
+                            ng-options="c.key for c in selectedType.list track by c.value"
+                            class="form-control"  style="color: red;">
+                        <option value="">--- 请选择 ---</option>
+                    </select>
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">价格:</span>
+                    <input type="text" class="form-control" id="uprice">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">单位:</span>
+                    <input type="text" class="form-control" id="uunit">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">图片:</span>
+                    <input type="file" class="form-control" id="upic">
+                </div>
+                <div class="input-group input-group">
+                    <span style="color: red;">请上传300x300 50KB以下的jpg图片</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success" ng-click="upload()">保存</a>
+                <a href="#" class="btn" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>

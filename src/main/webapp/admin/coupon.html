@@ -1,0 +1,130 @@
+<div class="container">
+    <button id="add_coupon" class="menu-product btn btn-info btn-sm" ng-click="create()" data-toggle="modal"
+            data-target="#createDialog">发放卡券
+    </button>
+    <!--<button id="modify_coupon" class="menu-product btn btn-primary btn-sm" ng-click="modify()" data-toggle="modal"-->
+    <!--data-target="#modifyDialog">修改卡券-->
+    <!--</button>-->
+    <!--<button id="view_coupon" class="menu-product btn btn-warning btn-sm" ng-click="view()"-->
+    <!--data-toggle="modal"-->
+    <!--data-target="#viewDialog">查看卡券-->
+    <!--</button>-->
+    <!--<button id="issue_coupon" class="menu-product btn btn-success btn-sm" data-toggle="modal"-->
+    <!--data-target="#issueDialog">发放卡券-->
+    <!--</button>-->
+    <button id="export_coupon" class="btn btn-success btn-sm export_button" ng-click="export()">导出Excel</button>
+    <table class="table table-bordered table-hover table-responsive">
+        <thead>
+        <tr>
+            <th ng-click="f='owner'; rev=!rev">所有者 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='type'; rev=!rev">类型 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></th>
+            <th ng-click="f='description'; rev=!rev">描述 <span class="glyphicon glyphicon-sort"
+                                                              aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='startTime'; rev=!rev">起始时间 <span class="glyphicon glyphicon-sort"
+                                                              aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='endTime'; rev=!rev">结束时间 <span class="glyphicon glyphicon-sort"
+                                                            aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='used'; rev=!rev">已使用 <span class="glyphicon glyphicon-sort"
+                                                        aria-hidden="true"></span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="coupon in couponList | orderBy: f : rev">
+            <td ng-bind="coupon.user.nickname"></td>
+            <td ng-bind="coupon.cType"></td>
+            <td ng-bind="coupon.detailInfo"></td>
+            <td ng-bind="coupon.startTime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
+            <td ng-bind="coupon.endTime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
+            <td ng-bind="coupon.used | tochinese"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div id="createDialog" class="modal fade" method="create" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+
+                <h3 class="title">新增卡券</h3>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group">
+                    <span class="input-group-addon">类别:</span>
+                    <select class="form-control" id="cType" ng-model="createdCoupon.cType" ng-change="print()">
+                        <option value="discount">打折券</option>
+                        <option value="voucher">代金券</option>
+                    </select>
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">开始:</span>
+                    <input class="form-control" id="startTime" ng-model="createdCoupon.startTime">
+                    </input>
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">结束:</span>
+                    <input class="form-control" id="endTime" ng-model="createdCoupon.endTime">
+                    </input>
+                </div>
+                <div ng-if="createdCoupon.cType=='discount'">
+                    <div class="input-group input-group">
+                        <span class="input-group-addon">打折:</span>
+                        <input class="form-control" id="discountFactor" ng-model="createdCoupon.discountFactor"
+                               ng-change="updateDescription()">
+                        </input>
+                    </div>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon">描述:</span>
+                        <input class="form-control" ng-model="createdCoupon.description" disabled>
+                        </input>
+                    </div>
+                </div>
+                <div ng-if="createdCoupon.cType=='voucher'">
+                    <div class="input-group input-group">
+                        <span class="input-group-addon">满足:</span>
+                        <input class="form-control" id="reachedPrice" ng-model="createdCoupon.reachedMoney"
+                               ng-change="updateDescription()">
+                        </input>
+                    </div>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon">减去:</span>
+                        <input class="form-control" id="deductPrice" ng-model="createdCoupon.deductedMoney"
+                               ng-change="updateDescription()">
+                        </input>
+                    </div>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon">描述:</span>
+                        <input class="form-control" ng-model="createdCoupon.description" disabled>
+                        </input>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success" ng-click="save()">保存</a>
+                <a href="#" class="btn" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        //$('#delivery_ts').val('次日上午8:00到10:30间');
+        $('#startTime,#endTime').mobiscroll().datetime({
+            theme: 'sense-ui',     // Specify theme like: theme: 'ios' or omit setting to use default
+            mode: 'scroller',       // Specify scroller mode like: mode: 'mixed' or omit setting to use default
+            lang: 'zh',       // Specify language like: lang: 'pl' or omit setting to use default
+            minDate: new Date(),  // More info about minDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-minDate
+            maxDate: new Date(2020, 1, 1, 1, 1),   // More info about maxDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-maxDate
+        });
+    })
+</script>
+

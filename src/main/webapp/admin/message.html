@@ -1,0 +1,45 @@
+<div class="container">
+    <table class="table table-bordered table-hover table-responsive">
+        <thead>
+        <tr>
+            <th width="10%">头像</th>
+            <th ng-click="f='name'; rev=!rev">名字 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></th>
+            <th>操作 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in userList | orderBy: f : rev">
+            <td><img ng-src="{{user.headimgurl}}" width="100px"></td>
+            <td ng-bind="user.nickname"></td>
+            <td>
+                <button class="btn btn-success" data-toggle="modal" data-target="#messageDialog" ng-click="sendMessage(user.openid)">发送消息</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div id="messageDialog" class="modal fade" role="dialog">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+
+                <h3 class="title">发送消息</h3>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" id="message-body" rowspan="6"/>
+            </div>
+
+
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success" ng-click="send()">发送</a>
+                <a href="#" class="btn" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

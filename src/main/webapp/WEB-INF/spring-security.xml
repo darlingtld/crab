@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder ignore-unresolvable="true"
+                                  location="classpath*:/wechat.properties" />
+
+    <bean id="dataSource2" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${mysql.url}" />
+        <property name="username" value="${mysql.username}" />
+        <property name="password" value="${mysql.password}" />
+    </bean>
+
+    <!-- enable use-expressions -->
+    <security:http auto-config="false" use-expressions="true">
+
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/**" access="permitAll" />
+
+        <!-- access denied page -->
+        <security:access-denied-handler error-page="/error" />
+
+        <security:form-login
+                login-page="/login/login.jsp"
+                default-target-url="/admin/manage.html"
+                authentication-failure-url="/login/login.jsp?error"
+                username-parameter="j_username"
+                password-parameter="j_password" />
+        <security:logout logout-success-url="/login/login.jsp?logout"  />
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:jdbc-user-service
+                    data-source-ref="dataSource2"
+                    users-by-username-query="select username,password, 1 from administrator where username=?"
+                    authorities-by-username-query="select username, role from administrator where username=?"
+                    />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>

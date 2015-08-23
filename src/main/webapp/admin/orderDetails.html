@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <br/>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <td colspan="2">
+                    <span class="text-success">订单摘要</span>
+                </td>
+            </tr>
+            <tr>
+                <td><span class="text-info">订单时间</span></td>
+                <td><span id="orderTs"></span></td>
+            </tr>
+            <tr>
+                <td><span class="text-info">配送时间</span></td>
+                <td><span id="deliveryTs"></span></td>
+            </tr>
+            <tr>
+                <td><span class="text-info">商户信息</span></td>
+                <td><span id="buyerInfo"></span></td>
+            </tr>
+            <tr>
+                <td><span class="text-info">商户地址</span></td>
+                <td><span id="buyerAddress"></span></td>
+            </tr>
+            <tr>
+                <td><span class="text-info">收件人</span></td>
+                <td><span id="consignee"></span></td>
+            </tr>
+            <tr>
+                <td><span class="text-info">联系电话</span></td>
+                <td><span id="contact"></span></td>
+            </tr>
+            <tr>
+                <td><span class="text-info">状态</span></td>
+                <td><span id="status"></span></td>
+            </tr>
+            <tr>
+                <td><span class="text-info">品类总数</span></td>
+                <td><span id="totalAmount"></span></td>
+            </tr>
+            <tr>
+                <td><span class="text-info">物件总价</span></td>
+                <td><span id="totalPrice"></span>元</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <td colspan="2">
+                    <i class="icon-basket-loaded i-lg"></i>
+                    <span class="text-success">&nbsp;&nbsp;订单详情</span>
+                </td>
+            </tr>
+            <tbody id="details">
+                <!--<tr>-->
+                    <!--<td style="width: 50%; text-align: center; vertical-align: middle" rowspan="3">-->
+                        <!--<img id="img" style="width: 30%;"/>-->
+                    <!--</td>-->
+                    <!--<td>商品名称：<span id="productName"></span></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>商品单价：<span id="productPrice"></span></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>商品数量：<span id="amount"></span></td>-->
+                <!--</tr>-->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row row-sm">
+        <div style="height: 80px;"></div>
+    </div>
+
+</body>
+</html>
+
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="js/orderDetails.js"></script>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app="DelivModule">
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!--<meta charset="utf-8">-->
+    <meta http-equiv="pragma" content="no-cache"/>
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no"/>
+    <title>缘众大闸蟹 -- 确认单</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/deliv.css"/>
+
+</head>
+<body ng-controller="mainController">
+
+<div class="js-content">
+    <div id="mainListBlock" class="fl scroll-y"
+         style="position:relative;height:100%;width:100%;-webkit-overflow-scrolling: touch;">
+
+        <table class="table table-bordered table-responsive">
+            <thead>
+            <tr>
+                <th>商品</th>
+                <th>购买</th>
+                <th>单价</th>
+                <th>实际量</th>
+                <th>总价</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat='item in items'>
+                <td width="15%"><span ng-bind="item.productName"></span></td>
+                <td width="13%"><span ng-bind="item.amount"></span><span ng-bind="item.productUnit"></span></td>
+                <td width="15%">
+                    <span ng-bind="item.productPrice"></span>
+                    <!--<input class='form-control'-->
+                           <!--ng-change="updateTotalPrice()"-->
+                           <!--ng-model="item.productPrice"-->
+                           <!--placeholder="{{item.productPrice}}">-->
+                </td>
+                <td width="15%">
+                    <div class="input-group">
+                        <input type="text" class="actTotalAmount form-control" ng-change="updateTotalPrice()"
+                               ng-model="item.actAmount" placeholder="{{item.actAmount}}">
+                        <!--<div class="input-group-addon" style="padding: 3px;"><span ng-bind="item.productUnit"></span></div>-->
+                    </div>
+                </td>
+                <td width="20%"><span class='actTotalPrice' ng-bind="item.totalPrice"></span></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="row row-sm">
+    <div style="height: 80px;"></div>
+</div>
+<footer class="footer navbar-fixed-bottom">
+    <div class="confirm">
+        <div>
+            <span>订单确认</span>
+        </div>
+        <div>
+            总价：<span id="totalPrice" ng-bind="totalPrice">0</span>元
+        </div>
+        <div><a id='confirmBtn' class="btn btn-info" data-toggle="modal" data-target="#myModal">确认</a>
+        </div>
+    </div>
+</footer>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">订单状态</h4>
+            </div>
+            <div class="modal-body">
+                <p id="order-status">
+                    <button class="btn btn-danger btn-block" ng-click="confirm($event)">已配送（未付款）</button>
+                    <br>
+                    <button class="btn btn-primary btn-block" ng-click="confirm($event)">已配送（已付款）</button>
+                    <br>
+                </p>
+
+            </div>
+            <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+            <!--</div>-->
+        </div>
+
+    </div>
+</div>
+
+<div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">订单修改</h4>
+            </div>
+            <div class="modal-body">
+                <p id="order-update">
+                    <button class="btn btn-danger btn-block" ng-click="update()">确认修改</button>
+                </p>
+
+            </div>
+            <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+            <!--</div>-->
+        </div>
+
+    </div>
+</div>
+
+<!--js load -->
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascript/deliv.js"></script>
+<!--mobiscroll-->
+</body>
+</html>

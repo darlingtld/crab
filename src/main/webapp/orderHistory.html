@@ -1,0 +1,28 @@
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr class="active">
+            <td colspan="3" class="text-center">
+                <i class="icon-basket-loaded i-lg"></i>
+                <span class="text-success">订单摘要</span>
+            </td>
+        </tr>
+        <tr>
+            <th class="text-center"><span class="text-info">订单时间</span></th>
+            <th class="text-center"><span class="text-info">订单状态</span></th>
+            <th class="text-center"><span class="text-info">操作</span></th>
+        </tr>
+        <tr ng-repeat="order in orders">
+            <td><span ng-bind="(order.orderTs | part : 0)"></span>
+                <br><span ng-bind="(order.orderTs | part : 1)"></span></td>
+            <td class="text-center"><span ng-bind="order.status"></span></td>
+            <td>
+                <a href="#/order/details/{{order.id}}" role="button" class="btn btn-xs btn-success">查看</a>
+                <a confirm_code="{{order.confirmCode}}" role="button" class="btn btn-xs btn-danger">确认码</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="row row-sm">
+    <div style="height: 80px;"></div>
+</div>

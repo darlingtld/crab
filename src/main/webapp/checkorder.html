@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="MycaiModule">
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!--<meta charset="utf-8">-->
+    <meta http-equiv="pragma" content="no-cache"/>
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no"/>
+    <title>缘众大闸蟹 -- 最新订单</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/preview.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body>
+<div class="navbar-fixed-top">
+    <div style='padding: 5px 10px;text-align: center;' class="js-search-bar bg-info">
+
+
+        <div class="logo">
+            <img class="user-icon" src="images/head.jpg"/>
+        </div>
+    </div>
+
+</div>
+<div class="js-content" style="margin-top: 0px;">
+    <div id="mainListBlock" class="fl scroll-y"
+         style="position:relative;height:100%;width:100%;-webkit-overflow-scrolling: touch;">
+        <ng-view></ng-view>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+<script type="text/javascript" src="javascript/myorder.js"></script>
+<script type="text/javascript" src="javascript/test.js"></script>
+
+</body>
+</html>

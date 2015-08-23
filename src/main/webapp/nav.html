@@ -1,0 +1,29 @@
+<div>
+    <div class="shelf text-center" ng-repeat="product in productList">
+        <img ng-src="{{product.picurl}}">
+
+        <div>
+
+            <div class="text-left">
+                <span class="item-info" ng-bind="product.name"></span>
+            </div>
+            <div class="text-left" style="line-height: 2">
+                <span class="item-price" ng-bind="product.price | currency : '￥'"></span>
+                <a class="btn btn-sm orange" style="float: right;margin: 0px 20px 5px 0px;"
+                   href="#/product/itemid/{{product.id}}">查看详情</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<div class="logo-mark text-center">
+    <img ng-src="images/lylogo.jpg">
+    <span>缘众大闸蟹</span>
+
+</div>
+<div class="row row-sm">
+    <div class="placeholder"></div>
+</div>

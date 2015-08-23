@@ -1,0 +1,82 @@
+<div id="content">
+    <section class="vbox">
+        <section class="scrollable bg-light lter" data-spy="scroll" data-target=".nav-primary">
+            <section id="docs">
+                <!--<br/>-->
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td colspan="2">
+                                <i class="icon-basket-loaded i-lg"></i>
+                                <span class="text-success">&nbsp;&nbsp;订单详情</span>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td colspan="2"><span class="text-info">购物清单</span></td>
+                        </tr>
+                        <tr>
+                            <td><p>品类数：<span ng-bind="bill.totalAmount"></span></p></td>
+                            <td><p>总价：<span ng-bind="bill.totalPrice | number : 2"></span>&nbsp;&nbsp;元</p></td>
+                        </tr>
+                        <tr class="active">
+                            <td colspan="2"><span class="text-info">优惠券</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>使用优惠券</span></td>
+                            <td><select id="coupon" ng-model="selectedCoupon"
+                                        ng-options="c.detailInfo for c in couponList track by c.id"
+                                        class="form-control" style="color: chocolate;" ng-change="modifyTotalPrice()">
+                                <option value="">--- 不使用优惠券 ---</option>
+                            </select></td>
+                        </tr>
+                        <tr class="active">
+                            <td colspan="2"><span class="text-info">收货信息</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>收货时间</span></td>
+                            <td><input id="delivery_ts" type="text" class="form-control datetime" placeholder="填写收货日期">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>买家信息</span></td>
+                            <td><input id="buyer_info" type="text" class="form-control" placeholder="填写买家信息"></td>
+                        </tr>
+                        <tr>
+                            <td><span>买家地址</span></td>
+                            <td><input id="buyer_address" type="text" class="form-control" placeholder="填写买家地址"></td>
+                        </tr>
+                        <tr>
+                            <td><span>收货人</span></td>
+                            <td><input id="consignee" type="text" class="form-control" placeholder="填写收货人"></td>
+                        </tr>
+                        <tr>
+                            <td><span>联系方式</span></td>
+                            <td><input id="consignee_contact" type="text" class="form-control" placeholder="填写联系方式">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>付款方式</span></td>
+                            <td><input id="pay_method" type="text" class="form-control" value="货到付款" disabled></td>
+                        </tr>
+                        <tr>
+                            <td><span>运费</span></td>
+                            <td><input id="delivery_fee" type="text" class="form-control" value="0元" disabled></td>
+                        </tr>
+                        <tr class="active">
+                            <td colspan="2"><span class="text-info">备注</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><span>如有问题请您直接拨打客服电话：1234678901</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </section>
+</div>
+
+<div class="row row-sm">
+    <div class="placeholder"></div>
+</div>
+

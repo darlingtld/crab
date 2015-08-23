@@ -1,0 +1,75 @@
+<div class="container">
+    <button id="export_dispatch" class="btn btn-success btn-sm export_button" ng-click="export()">导出Excel</button>
+    <table class="table table-bordered table-hover table-responsive">
+        <thead>
+        <tr>
+            <th ng-click="f='name'; rev=!rev">名字 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></th>
+            <th ng-click="f='quantity'; rev=!rev">总量 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            </th>
+            <th>单位</th>
+            <th ng-click="f='type'; rev=!rev">详细 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="dispatch in dispatchList | orderBy: f : rev">
+            <td ng-bind="dispatch.product.name"></td>
+            <td ng-bind="dispatch.quantity"></td>
+            <td ng-bind="dispatch.unit"></td>
+            <td>
+                <select class="form-control" multiple>
+                    <option ng-repeat="orderInfo in dispatch.orderInfoList" value="{{orderInfo}}">{{orderInfo}}</option>
+                </select>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div id="dialog" class="modal hide fade in" style="display: none; " method="update">
+
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+
+        <h3>修改菜品</h3>
+    </div>
+    <div class="modal-body">
+        <input type="hidden" id="pid">
+
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">名字</span>
+            <input type="text" class="form-control" id="name">
+        </div>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">描述:</span>
+            <input type="text" class="form-control" id="description">
+        </div>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">大类:</span>
+            <!--<input type="text" class="form-control" id="type">-->
+            <select id="type" ng-model="select3" ng-options="t.name for t in typeMap track by t.value">
+                <option value="">--- 请选择 ---</option>
+            </select>
+        </div>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">小类:</span>
+            <!--<input type="text" class="form-control" id="category">-->
+            <select id="category" ng-model="select4" ng-options="c.key for c in select3.list track by c.value">
+                <option value="">--- 请选择 ---</option>
+            </select>
+        </div>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">价格:</span>
+            <input type="text" class="form-control" id="price">
+        </div>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">单位:</span>
+            <input type="text" class="form-control" id="unit">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-success" ng-click="save()">保存</a>
+        <a href="#" class="btn" data-dismiss="modal">关闭</a>
+    </div>
+</div>
+</div>
+
