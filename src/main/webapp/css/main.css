@@ -284,3 +284,13 @@ body {
 .green {
     color: lightgreen;
 }
+
+#slides {
+    display: none;
+    margin-bottom: 5px;
+}
+
+.slidesjs-pagination {
+    display: none;
+}
+
