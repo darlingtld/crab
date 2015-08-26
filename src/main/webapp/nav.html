@@ -3,9 +3,9 @@
     <img src="product_images/jingpinka.jpg">
     <img src="product_images/zhizunka.jpg">
 </div>
-<div id="advertisement" class="text-center">
-    <span>缘众大闸蟹</span>
-</div>
+<!--<div id="advertisement" class="text-center">-->
+    <!--<span>缘众大闸蟹</span>-->
+<!--</div>-->
 <div>
     <div class="shelf text-center" ng-repeat="product in productList">
         <img ng-src="{{product.picurl}}">
@@ -38,6 +38,8 @@
 <script>
     $(function () {
         $('#slides').slidesjs({
+            width: 500,
+            height: 350,
             navigation: false,
             start: 3,
             play: {
