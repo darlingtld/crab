@@ -294,3 +294,19 @@ body {
     display: none;
 }
 
+/*.slidesjs-container{*/
+    /*width: 100%;*/
+/*}*/
+
+#mainListBlock {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+#advertisement{
+    background-color: rgb(226, 243, 64);
+    margin-top: -5px;
+    border-radius: 5px;
+}

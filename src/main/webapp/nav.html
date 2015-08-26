@@ -1,3 +1,11 @@
+<div id="slides">
+    <img src="product_images/dalibao.jpg">
+    <img src="product_images/jingpinka.jpg">
+    <img src="product_images/zhizunka.jpg">
+</div>
+<div id="advertisement" class="text-center">
+    <span>缘众大闸蟹</span>
+</div>
 <div>
     <div class="shelf text-center" ng-repeat="product in productList">
         <img ng-src="{{product.picurl}}">
@@ -17,13 +25,24 @@
 
 
 </div>
-</div>
 
 <div class="logo-mark text-center">
-    <img ng-src="images/lylogo.jpg">
+    <img ng-src="images/xiebaowanglogo.jpg">
     <span>缘众大闸蟹</span>
 
 </div>
 <div class="row row-sm">
     <div class="placeholder"></div>
 </div>
+
+<script>
+    $(function () {
+        $('#slides').slidesjs({
+            navigation: false,
+            start: 3,
+            play: {
+                auto: true
+            }
+        });
+    })
+</script>

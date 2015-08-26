@@ -40,15 +40,7 @@
     </div>
 </div>
 <div class="js-content">
-    <div id="mainListBlock" class="fl scroll-y"
-         style="position:relative;height:100%;width:100%;-webkit-overflow-scrolling: touch;">
-
-        <div id="slides">
-            <img src="product_images/dalibao.jpg">
-            <img src="product_images/jingpinka.jpg">
-            <img src="product_images/zhizunka.jpg">
-        </div>
-
+    <div id="mainListBlock" class="fl scroll-y">
         <ng-view></ng-view>
     </div>
 
@@ -88,14 +80,6 @@
 <script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.datetime.js"></script>
 <script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.select.js"></script>
 <script type="text/javascript" src="javascript/mobiscroll/js/i18n/mobiscroll.i18n.zh.js"></script>
-<script>
-    $('#slides').slidesjs({
-        navigation: false,
-        start: 3,
-        play: {
-            auto: true
-        }
-    });
-</script>
+
 </body>
 </html>
