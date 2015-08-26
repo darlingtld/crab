@@ -72,6 +72,13 @@ public class NavController {
         return productService.getAll();
     }
 
+    @RequestMapping(value = "/type/{type}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Product> getListByType(@PathVariable("type") String type) {
+        return productService.getListByType(type);
+    }
+
     @RequestMapping(value = "/procurement/all", method = RequestMethod.GET)
     public
     @ResponseBody

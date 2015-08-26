@@ -1,5 +1,6 @@
 package createsh.dao;
 
+import createsh.pojo.CardCode;
 import createsh.pojo.Procurement;
 import createsh.pojo.Product;
 import createsh.pojo.ProductOrder;
@@ -105,5 +106,22 @@ public class ProductDao {
 
     public List<Product> getByType(String type) {
         return sessionFactory.getCurrentSession().createQuery(String.format("from Product where type='%s'", type.toUpperCase())).list();
+    }
+
+    public void saveCardCode(CardCode cardCode) {
+        sessionFactory.getCurrentSession().save(cardCode);
+    }
+
+    public CardCode getUnusedCardCode(Integer productId) {
+        List<CardCode> cardCodeList = sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where productId = %d and used=false and openid is null", productId)).list();
+        if (cardCodeList.isEmpty()) {
+            return null;
+        } else {
+            return cardCodeList.get(0);
+        }
+    }
+
+    public void markUnusedCardCode4User(Integer id, String openid) {
+        sessionFactory.getCurrentSession().createQuery(String.format("update CardCode set openid = '%s' where id = %d", openid, id)).executeUpdate();
     }
 }

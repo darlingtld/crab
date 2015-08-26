@@ -140,7 +140,7 @@ public class UserService {
 //            userInDB.setMobile(user.getMobile());
 //            userInDB.setEmail(user.getEmail());
             userInDB.setHeadimgurl(user.getHeadimgurl());
-//            userInDB.setConsigneeInfo(user.getConsigneeInfo());
+//            userInDB.setBuyerInfo(user.getBuyerInfo());
 //            userInDB.setConsignee(user.getConsignee());
 //            userInDB.setConsigneeContact(user.getConsigneeContact());
             userDao.update(userInDB);

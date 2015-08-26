@@ -282,4 +282,15 @@ public class ProductService {
     public void saveProductSortOrder(List<ProductOrder> productOrderList) {
         productDao.saveProductSortOrder(productOrderList);
     }
+
+    @Transactional
+    public List<Product> getListByType(String type) {
+       return productDao.getByType(type);
+
+    }
+
+    @Transactional
+    public void saveCardCode(CardCode cardCode) {
+        productDao.saveCardCode(cardCode);
+    }
 }

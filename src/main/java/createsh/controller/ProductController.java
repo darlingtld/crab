@@ -213,4 +213,11 @@ public class ProductController {
         productService.saveProductSortOrder(productOrderList);
     }
 
+    @RequestMapping(value = "/create/card_code", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    public
+    @ResponseBody
+    void createCardCode(@RequestBody CardCode cardCode) {
+        productService.saveCardCode(cardCode);
+    }
+
 }

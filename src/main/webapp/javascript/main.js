@@ -12,6 +12,7 @@ var bill = {
 var user;
 var wechatId;
 var username;
+var buyType = getURLParameter('buy_type');
 
 
 module.service('authService', function ($http) {
@@ -87,7 +88,7 @@ module.controller('mainController', function ($scope, $location, authService) {
 
 module.controller('navController', function ($scope, $http, $routeParams) {
     goToNav();
-    var url = app + '/nav/all';
+    var url = app + '/nav/type/' + $routeParams.type;
     $http.get(url).success(function (data, status, headers, config) {
         $scope.productList = data;
     });
@@ -219,13 +220,13 @@ module.controller('confirmController', function ($scope, $http, $location) {
             });
 
             if (user != undefined) {
-                $('#shop_info').val(user.shopInfo);
-                $('#shop_address').val(user.shopAddress);
+                $('#buyer_info').val(user.buyerInfo);
+                $('#buyer_address').val(user.buyerAddress);
                 $('#consignee').val(user.consignee);
                 $('#consignee_contact').val(user.consigneeContact);
-            } else if (getLocalStorage('shop_info') != undefined && getLocalStorage('shop_info') != null) {
-                $('#shop_info').val(getLocalStorage('shop_info'));
-                $('#shop_address').val(getLocalStorage('shop_address'));
+            } else if (getLocalStorage('buyer_info') != undefined && getLocalStorage('buyer_info') != null) {
+                $('#buyer_info').val(getLocalStorage('buyer_info'));
+                $('#buyer_address').val(getLocalStorage('buer_address'));
                 $('#consignee').val(getLocalStorage('consignee'));
                 $('#consignee_contact').val(getLocalStorage('consignee_contact'));
             }
@@ -243,8 +244,8 @@ module.controller('confirmController', function ($scope, $http, $location) {
                         bill: JSON.stringify(bill),
                         orderTs: new Date().Format("yyyy-MM-dd hh:mm:ss"),
                         deliveryTs: $('#delivery_ts').val(),
-                        shopInfo: $('#buyer_info').val(),
-                        shopAddress: $('#buyer_address').val(),
+                        buyerInfo: $('#buyer_info').val(),
+                        buyerAddress: $('#buyer_address').val(),
                         consignee: $('#consignee').val(),
                         consigneeContact: $('#consignee_contact').val()
                     };
@@ -256,15 +257,16 @@ module.controller('confirmController', function ($scope, $http, $location) {
                             success(function (data, status, headers, config) {
                                 alert('提交订单成功！');
                                 clearLocalStorage();
-                                setLocalStorage('shop_info', order.shopInfo);
-                                setLocalStorage('shop_address', order.shopAddress);
+                                setLocalStorage('buyer_info', order.buyerInfo);
+                                setLocalStorage('buyer_address', order.buyerAddress);
                                 setLocalStorage('consignee', order.consignee);
                                 setLocalStorage('consignee_contact', order.consigneeContact);
                                 clearBill();
                                 init();
                                 $location.path('/order/history');
                             }).error(function () {
-                                alert(data.status);
+                                alert("存货不足");
+                                $location.path('/')
                             });
                     }
                 }
@@ -433,7 +435,7 @@ module.config(['$routeProvider', function ($routeProvider) {
             controller: 'submitController',
             templateUrl: 'success.html'
         })
-        .when('/nav', {
+        .when('/nav/:type', {
             controller: 'navController',
             templateUrl: 'nav.html'
         })
@@ -458,7 +460,7 @@ module.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'message_all.html'
         })
         .otherwise({
-            redirectTo: '/nav'
+            redirectTo: '/nav/' + buyType
         });
 }]);
 
@@ -513,11 +515,11 @@ function validateOrder(order) {
     if (order.deliveryTs.trim() == '') {
         alert('请选择配送时间');
         return false;
-    } else if (order.shopInfo.trim() == '') {
-        alert('请输入商户信息');
+    } else if (order.buyerInfo.trim() == '') {
+        alert('请输入买家信息');
         return false;
-    } else if (order.shopAddress.trim() == '') {
-        alert('请输入商户地址');
+    } else if (order.buyerAddress.trim() == '') {
+        alert('请输入买家地址');
         return false;
     } else if (order.consignee.trim() == '') {
         alert('请输入收货人姓名');

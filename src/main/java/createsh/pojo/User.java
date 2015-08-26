@@ -55,10 +55,10 @@ public class User {
     private String consignee;
     @Column(name = "consignee_contact")
     private String consigneeContact;
-    @Column(name = "consignee_info")
-    private String consigneeInfo;
-    @Column(name = "consignee_address")
-    private String consgineeAddress;
+    @Column(name = "buyer_info")
+    private String buyerInfo;
+    @Column(name = "buyer_address")
+    private String buyerAddress;
 //    @Column(name = "email")
 //    private String email;
 
@@ -78,25 +78,25 @@ public class User {
                 ", unionid='" + unionid + '\'' +
                 ", consignee='" + consignee + '\'' +
                 ", consigneeContact='" + consigneeContact + '\'' +
-                ", consigneeInfo='" + consigneeInfo + '\'' +
-                ", consgineeAddress='" + consgineeAddress + '\'' +
+                ", buyerInfo='" + buyerInfo + '\'' +
+                ", buyerAddress='" + buyerAddress + '\'' +
                 '}';
     }
 
-    public String getConsgineeAddress() {
-        return consgineeAddress;
+    public String getBuyerAddress() {
+        return buyerAddress;
     }
 
-    public void setConsgineeAddress(String consgineeAddress) {
-        this.consgineeAddress = consgineeAddress;
+    public void setBuyerAddress(String buyerAddress) {
+        this.buyerAddress = buyerAddress;
     }
 
-    public String getConsigneeInfo() {
-        return consigneeInfo;
+    public String getBuyerInfo() {
+        return buyerInfo;
     }
 
-    public void setConsigneeInfo(String consigneeInfo) {
-        this.consigneeInfo = consigneeInfo;
+    public void setBuyerInfo(String buyerInfo) {
+        this.buyerInfo = buyerInfo;
     }
 
     public String getConsigneeContact() {

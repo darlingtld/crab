@@ -12,6 +12,7 @@ import createsh.dao.ProductDao;
 import createsh.dao.UserDao;
 import createsh.pojo.*;
 import createsh.util.Utils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,8 @@ public class OrderService {
         if (user != null) {
             user.setConsignee(order.getConsignee());
             user.setConsigneeContact(order.getConsigneeContact());
-            user.setConsigneeInfo(order.getBuyerInfo());
-            user.setConsgineeAddress(order.getBuyerAddress());
+            user.setBuyerInfo(order.getBuyerInfo());
+            user.setBuyerAddress(order.getBuyerAddress());
             userDao.update(user);
         } else {
             String unknownUser = "songda user";
@@ -57,8 +58,8 @@ public class OrderService {
             user.setNickname(unknownUser);
             user.setConsignee(order.getConsignee());
             user.setConsigneeContact(order.getConsigneeContact());
-            user.setConsigneeInfo(order.getBuyerInfo());
-            user.setConsgineeAddress(order.getBuyerAddress());
+            user.setBuyerInfo(order.getBuyerInfo());
+            user.setBuyerAddress(order.getBuyerAddress());
             userDao.save(user);
         }
         String code = generateConfirmCode();
@@ -72,7 +73,31 @@ public class OrderService {
         jsonObject.put("totalPrice", Utils.formatDouble(totalPrice, 2));
         order.setBill(jsonObject.toJSONString());
         markUsedCoupon(jsonObject.getString("usedCoupon"));
+        saveCrabCardIfAny(jsonObject.getJSONArray("items"), user.getOpenid());
         orderDao.save(order);
+    }
+
+    private void saveCrabCardIfAny(JSONArray items, String openid) {
+        for (int i = 0; i < items.size(); i++) {
+            int productId = items.getJSONObject(i).getInteger("productId");
+            if (isItemTypeOfCard(productId)) {
+                CardCode cardCode = productDao.getUnusedCardCode(productId);
+                if (cardCode == null) {
+                    throw new IllegalStateException("存货不足");
+                }
+                int id = cardCode.getId();
+                productDao.markUnusedCardCode4User(id, openid);
+            }
+        }
+    }
+
+    private boolean isItemTypeOfCard(Integer productId) {
+        Product product = productDao.getById(productId);
+        if (product.getType().equals(Type.CARD)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void markUsedCoupon(String couponJson) {
