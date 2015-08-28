@@ -4,6 +4,9 @@
 var adminModule = angular.module('AdminModule', ['ngRoute']);
 var app = '/crab';
 var cdata = {
+    "卡券":{
+        "礼品卡":"category/lipinka",
+    },
     "蔬菜水果": {
         "叶菜类": "category/yecailei",
         "根茎类": "category/genjinglei",
@@ -55,6 +58,7 @@ var cdata = {
 }
 
 var tdata = {
+    "卡券":"card",
     "蔬菜水果": "shucaishuiguo",
     "禽肉蛋类": "qinroudanlei",
     "水产冻货": "shuichandonghuo",
@@ -92,7 +96,7 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
 
     //console.log(isFirst)
     if (isFirst == true) {
-        setTimeout("objS.val('category/yecailei')", 1000);
+        setTimeout("objS.val('category/lipinka')", 1000);
         isFirst = false;
     }
 
@@ -580,6 +584,6 @@ adminModule.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'message.html'
         })
         .otherwise({
-            redirectTo: '/product/category/yecailei'
+            redirectTo: '/product/category/lipinka'
         });
 }]);

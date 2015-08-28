@@ -12,13 +12,13 @@ function _initialPage() {
     //init table
     $.ajax({
         type: "get",
-        url: "/mycai/order/detail/" + getURLParameter("id"),
+        url: "/crab/order/detail/" + getURLParameter("id"),
         dataType: "json",
         success: function (data) {
             $("#orderTs").text(data.orderTs);
             $("#deliveryTs").text(data.deliveryTs);
-            $("#shopInfo").text(data.shopInfo);
-            $("#shopAddress").text(data.shopAddress);
+            $("#buyerInfo").text(data.buyerInfo);
+            $("#buyerAddress").text(data.buyerAddress);
             $("#consignee").text(data.consignee);
             $("#contact").text(data.consigneeContact);
             $("#status").text(data.status);

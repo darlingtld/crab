@@ -202,6 +202,9 @@ public class ProductService {
 
     public Map<Type, List<Category>> getTypeMap() {
         Map<Type, List<Category>> typeListMap = new TreeMap<>();
+        List<Category> cardList = new ArrayList<>();
+        cardList.add(Category.LIPINKA);
+        typeListMap.put(Type.CARD, cardList);
         List<Category> machineList = new ArrayList<>();
         machineList.add(Category.NIANMIJI);
         typeListMap.put(Type.MACHINE, machineList);
@@ -285,7 +288,7 @@ public class ProductService {
 
     @Transactional
     public List<Product> getListByType(String type) {
-       return productDao.getByType(type);
+        return productDao.getByType(type);
 
     }
 
