@@ -1,0 +1,56 @@
+<div>
+    <div ng-repeat="product in products">
+        <div class="item">
+            <div style="align-self: center;width: 98%">
+                <img ng-src="{{product.picurl}}" class="product-img">
+            </div>
+
+            <div>
+                <p class="product_content">
+                    <span class="block">
+                        <span ng-bind="product.name"></span>
+                        <span ng-bind="product.description"></span>
+                    </span>
+                    <span style="color: red;" ng-bind="product.price | currency: '￥'"></span>
+                </p>
+            </div>
+
+            <div class="text-center" style="width: 100%;">
+                <span>提货码<span class="code" ng-bind="cardcode"></span>
+
+            </div>
+            <div class="fakegood" style="width: 100%;">
+                <span class="glyphicon glyphicon-thumbs-up green"></span><span>健康食品</span>
+                <span class="glyphicon glyphicon-thumbs-up green"></span><span>品质保证</span>
+            </div>
+
+            <div hidden>
+                <input class="product_id" data-product_id="{{product.id}}" type="hidden"/>
+                <input class="product_description" data-product_description="{{product.description}}" type="hidden"/>
+                <input class="product_name" data-product_name="{{product.name}}" type="hidden"/>
+                <input class="product_price" data-product_price="{{product.price}}" type="hidden"/>
+                <input class="product_unit" data-product_unit="{{product.unit}}" type="hidden"/>
+                <input class="product_picurl" data-product_picurl="{{product.picurl}}" type="hidden"/>
+            </div>
+        </div>
+        <div class="item" style="margin-top: 5px;">
+            <div class="text-center">
+                <span>商品详情</span>
+            </div>
+            <div class="details">
+                <span ng-bind="product.detail"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="logo-mark text-center">
+    <img ng-src="images/xiebaowanglogo.jpg">
+    <span>缘众大闸蟹</span>
+    <span>蟹宝旺</span>
+
+</div>
+
+<div class="row row-sm">
+    <div class="placeholder"></div>
+</div>

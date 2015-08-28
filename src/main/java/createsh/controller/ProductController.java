@@ -220,4 +220,11 @@ public class ProductController {
         productService.saveCardCode(cardCode);
     }
 
+    @RequestMapping(value = "/cardcode/wechatid/{wechatid}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<CardCode> createCardCode(@PathVariable("wechatid") String openid) {
+        return productService.getCardcodeByOpenid(openid);
+    }
+
 }

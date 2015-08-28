@@ -293,4 +293,9 @@ public class ProductService {
     public void saveCardCode(CardCode cardCode) {
         productDao.saveCardCode(cardCode);
     }
+
+    @Transactional
+    public List<CardCode> getCardcodeByOpenid(String openid) {
+        return productDao.getCardcodeByOpenid(openid);
+    }
 }

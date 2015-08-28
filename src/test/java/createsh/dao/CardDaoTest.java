@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.smartcardio.Card;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -36,7 +37,7 @@ public class CardDaoTest {
     private ProductService productService;
 
     @Test
-    public void testProductSave() {
+    public void saveCardcode() {
         String openId = "o5Irvt5957jQ4xmdHmDp59epk0UU";
         List<Product> productList = productService.getListByType(Type.CARD.toString());
         for (Product product : productList) {
@@ -45,9 +46,18 @@ public class CardDaoTest {
             cardCode.setStartTime(new Date());
             cardCode.setEndTime(new Date());
             cardCode.setUsed(false);
-            cardCode.setProductId(product.getId());
+            cardCode.setProduct(product);
             productService.saveCardCode(cardCode);
 
+        }
+    }
+
+    @Test
+    public void getCardcode() {
+        String openId = "o5Irvt5957jQ4xmdHmDp59epk0UU";
+        List<CardCode> cardCodeList = productService.getCardcodeByOpenid(openId);
+        for (CardCode cardCode : cardCodeList) {
+            System.out.println(cardCode.getProduct());
         }
     }
 

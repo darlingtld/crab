@@ -266,6 +266,7 @@ module.controller('confirmController', function ($scope, $http, $location) {
                                 $location.path('/order/history');
                             }).error(function () {
                                 alert("存货不足");
+                                init();
                                 $location.path('/')
                             });
                     }

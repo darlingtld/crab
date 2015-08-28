@@ -1,9 +1,6 @@
 package createsh.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -24,15 +21,16 @@ public class CardCode {
     private boolean used;
     @Column(name = "owner_id")
     private String openid;
-    @Column(name = "product_id")
-    private int productId;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    public int getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getId() {

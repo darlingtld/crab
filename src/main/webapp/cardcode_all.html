@@ -1,0 +1,10 @@
+<div class="coupon" ng-repeat="cardcode in cardcodes"
+     style="background: url('{{cardcode.product.picurl}}') center" ng-click="showDetail(cardcode.product.id, cardcode.code)">
+    <span class="coupon-info" ng-bind="cardcode.product.name"></span>
+    <span class="coupon-limit">使用期限<span ng-bind="cardcode.startTime | date: 'yyyy-MM-dd'"></span>至
+        <span ng-bind="cardcode.endTime | date: 'yyyy-MM-dd'"></span></span>
+</div>
+
+<div class="row row-sm">
+    <div style="height: 80px;"></div>
+</div>

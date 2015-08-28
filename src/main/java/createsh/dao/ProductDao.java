@@ -124,4 +124,8 @@ public class ProductDao {
     public void markUnusedCardCode4User(Integer id, String openid) {
         sessionFactory.getCurrentSession().createQuery(String.format("update CardCode set openid = '%s' where id = %d", openid, id)).executeUpdate();
     }
+
+    public List<CardCode> getCardcodeByOpenid(String openid) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where openid='%s' and used=false order by startTime asc", openid)).list();
+    }
 }
