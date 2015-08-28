@@ -11,6 +11,7 @@ cardcodeModule.config(function () {
 });
 
 cardcodeModule.controller('cardcodeController', function ($http, $scope, $location) {
+    $('#refresh').text('点击刷新');
     var url = app + '/product/cardcode/wechatid/' + wechatId;
     if (user == undefined || user == null) {
         var code = getURLParameter('code');
@@ -39,6 +40,7 @@ cardcodeModule.controller('cardcodeController', function ($http, $scope, $locati
 });
 
 cardcodeModule.controller('cardcodeDetailController', function ($http, $scope, $routeParams) {
+    $('#refresh').text('回到我的提货券');
     var url = app + '/product/itemid/' + $routeParams.id;
     $scope.cardcode = $routeParams.cardcode;
     $http.get(url).success(function (data, status, headers, config) {
