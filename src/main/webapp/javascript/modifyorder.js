@@ -2,7 +2,7 @@
  * Created by darlingtld on 2015/7/4 0004.
  */
 var mycaiModule = angular.module('MycaiModule', ['ngRoute']);
-var app = '/createsh';
+var app = '/crab';
 
 mycaiModule.config(function () {
 

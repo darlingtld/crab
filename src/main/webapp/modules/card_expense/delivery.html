@@ -1,41 +1,40 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <h3 class="text-center">缘众大闸蟹礼品卡提货券</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <img class="logo" ng-src="../../images/xiebaowanglogo.jpg"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <input type="text" class="input-lg form-control" placeholder="请输入提货码" ng-model="cardcode"/>
-            <button class="btn btn-block" data-toggle="modal" data-target="#confirmDialog">使用提货券</button>
-        </div>
-    </div>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr class="active">
+            <td colspan="2"><span class="text-info">收货信息</span></td>
+        </tr>
+        <tr>
+            <td><span>收货时间</span></td>
+            <td><input id="delivery_ts" type="text" class="form-control datetime" placeholder="填写收货日期"
+                       ng-model="card.consigneeDatetime">
+            </td>
+        </tr>
+        <tr>
+            <td><span>买家地址</span></td>
+            <td><input id="buyer_address" type="text" class="form-control" placeholder="填写收货地址"
+                       ng-model="card.buyerAddress"></td>
+        </tr>
+        <tr>
+            <td><span>收货人</span></td>
+            <td><input id="consignee" type="text" class="form-control" placeholder="填写收货人" ng-model="card.consignee">
+            </td>
+        </tr>
+        <tr>
+            <td><span>联系方式</span></td>
+            <td><input id="consignee_contact" type="text" class="form-control" placeholder="填写联系方式"
+                       ng-model="card.consigneeContact">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button class="btn btn-success btn-block" ng-click="confirm()">确认</button>
+            </td>
+        </tr>
+    </table>
 </div>
 
-<div id="confirmDialog" class="modal fade" role="dialog">
-    <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">使用提货券</h4>
-            </div>
-            <div class="modal-body">
-                <p id="order-status">
-                    <button class="btn btn-danger btn-block" ng-click="confirm()">确认使用</button>
-                    <br>
-                    <button class="btn btn-primary btn-block" ng-click="cancel()">取消使用</button>
-                    <br>
-                </p>
-
-            </div>
-        </div>
-
-    </div>
+<div class="row row-sm">
+    <div class="placeholder"></div>
 </div>
+

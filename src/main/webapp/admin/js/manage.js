@@ -7,14 +7,14 @@ var cdata = {
     "卡券":{
         "礼品卡":"category/lipinka",
     },
-    "蔬菜水果": {
-        "叶菜类": "category/yecailei",
+    "蔬商水果": {
+        "叶商类": "category/yecailei",
         "根茎类": "category/genjinglei",
         "茄果类": "category/qieguolei",
         "豆类": "category/doulei",
         "葱姜蒜": "category/congjiangsuan",
         "菌类": "category/junlei",
-        "特菜": "category/tecai"
+        "特商": "category/tecai"
     },
     "禽肉蛋类": {
         "猪肉": "category/zhurou",
@@ -45,7 +45,7 @@ var cdata = {
         "干货": "category/ganhuo",
         "调味品": "category/tiaoweipin",
         "酱油醋": "category/jiangyoucu",
-        "腌菜罐头": "category/yancaiguantou"
+        "腌商罐头": "category/yancaiguantou"
     },
     "餐厨用品": {
         "纸品湿巾": "category/zhipinshijin",
@@ -59,7 +59,7 @@ var cdata = {
 
 var tdata = {
     "卡券":"card",
-    "蔬菜水果": "shucaishuiguo",
+    "蔬商水果": "shucaishuiguo",
     "禽肉蛋类": "qinroudanlei",
     "水产冻货": "shuichandonghuo",
     "米面粮油": "mimianliangyou",
@@ -156,7 +156,7 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
     //});
     $scope.modify = function (id) {
         $('#myDialog').attr('method', 'update');
-        $('#myDialog .title').text('修改菜品');
+        $('#myDialog .title').text('修改商品');
         for (var i = 0; i < $scope.products.length; i++) {
             var product;
             if (id == $scope.products[i].id) {
@@ -176,7 +176,7 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
     };
 
     $scope.delete = function (id) {
-        if (confirm('确认删除该菜品')) {
+        if (confirm('确认删除该商品')) {
             $http.post(app + '/product/delete/' + id, {}).success(function () {
                 alert('删除成功！');
                 location.reload();
@@ -331,7 +331,7 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
             console.log(productArr[i].innerText + " ==> " + orderArr[i].innerText);
             data.push({productId: productArr[i].innerText, orderIndex: i})
         }
-        $('body').html('<h3 class="text-center">正在保存菜品顺序</h3>');
+        $('body').html('<h3 class="text-center">正在保存商品顺序</h3>');
         $http.post(app + "/product/save_sort", data).success(function () {
             alert('保存成功');
             location.reload();
