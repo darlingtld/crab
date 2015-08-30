@@ -25,12 +25,15 @@ public class PropertyHolder {
     public static final String APPSECRET = prop.getProperty("wechat.app_secret");
     public static final String SERVER = prop.getProperty("wechat.server");
 
-    public static final String MENU_GO_ORDER = "我要下单";
+    public static final String MENU_GO_SHOP = "微商城";
+    public static final String MENU_BUY_CRAB = "我要购蟹";
+    public static final String MENU_BUY_CARD = "我要购卡";
+    public static final String MENU_MY_INFO = "我的信息";
+    public static final String MENU_MY_CARDCODE = "我的提货券";
     public static final String MENU_MY_ORDER = "我的订单";
-    public static final String MENU_MY_LIANGYUAN = "我的优品";
-    public static final String MENU_MY_COUPON = "我的卡券";
-    public static final String MENU_NEW_PRODUCT = "新鲜资讯";
-    public static final String MENU_ABOUT_US = "关于我们";
+    public static final String MENU_MY_COUPON = "我的优惠券";
+    public static final String MENU_SERVICE_HALL = "服务大厅";
+    public static final String MENU_CARDCODE_DELIVERY = "卡券提货";
     public static final String MENU_POST_SALE_SERVICE = "售后服务";
 
 }

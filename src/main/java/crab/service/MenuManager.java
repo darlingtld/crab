@@ -48,40 +48,45 @@ public class MenuManager {
         String oauthUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
         ViewButton btn11 = new ViewButton();
-        btn11.setName(PropertyHolder.MENU_GO_ORDER);
-        btn11.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER, "UTF-8")));
+        btn11.setName(PropertyHolder.MENU_BUY_CRAB);
+        btn11.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "?buy_type=shuichandonghuo", "UTF-8")));
+
+        ViewButton btn12 = new ViewButton();
+        btn12.setName(PropertyHolder.MENU_BUY_CARD);
+        btn12.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "?buy_type=card", "UTF-8")));
 
         ViewButton btn21 = new ViewButton();
         btn21.setName(PropertyHolder.MENU_MY_ORDER);
         btn21.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/myorder.html", "UTF-8")));
-//        btn21.setUrl(PropertyHolder.SERVER + "?order_history=true");
 
         ViewButton btn22 = new ViewButton();
         btn22.setName(PropertyHolder.MENU_MY_COUPON);
         btn22.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/mycoupon.html", "UTF-8")));
 
-        ClickButton btn31 = new ClickButton();
-        btn31.setName(PropertyHolder.MENU_POST_SALE_SERVICE);
-        btn31.setKey(PropertyHolder.MENU_POST_SALE_SERVICE);
+        ViewButton btn23 = new ViewButton();
+        btn23.setName(PropertyHolder.MENU_MY_CARDCODE);
+        btn23.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/mycardcode.html", "UTF-8")));
 
-//        ClickButton btn32 = new ClickButton();
-//        btn32.setName(PropertyHolder.MENU_NEW_PRODUCT);
-//        btn32.setKey(PropertyHolder.MENU_NEW_PRODUCT);
+
+        ViewButton btn31 = new ViewButton();
+        btn31.setName(PropertyHolder.MENU_CARDCODE_DELIVERY);
+        btn31.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/modules/card_expense/index.html", "UTF-8")));
+
 
         ComplexButton mainBtn1 = new ComplexButton();
-        mainBtn1.setName(PropertyHolder.MENU_GO_ORDER);
-        mainBtn1.setSub_button(new ViewButton[]{btn11});
+        mainBtn1.setName(PropertyHolder.MENU_GO_SHOP);
+        mainBtn1.setSub_button(new ViewButton[]{btn11, btn12});
 
         ComplexButton mainBtn2 = new ComplexButton();
-        mainBtn2.setName(PropertyHolder.MENU_MY_LIANGYUAN);
-        mainBtn2.setSub_button(new ViewButton[]{btn21, btn22});
+        mainBtn2.setName(PropertyHolder.MENU_MY_INFO);
+        mainBtn2.setSub_button(new ViewButton[]{btn21, btn22, btn23});
 
         ComplexButton mainBtn3 = new ComplexButton();
-        mainBtn3.setName(PropertyHolder.MENU_POST_SALE_SERVICE);
-        mainBtn3.setSub_button(new ClickButton[]{btn31});
+        mainBtn3.setName(PropertyHolder.MENU_SERVICE_HALL);
+        mainBtn3.setSub_button(new ViewButton[]{btn31});
 
         JSONArray jsonArray = new JSONArray();
-        jsonArray.add(btn11);
+        jsonArray.add(mainBtn1);
         jsonArray.add(mainBtn2);
         jsonArray.add(mainBtn3);
 
