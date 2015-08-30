@@ -12,7 +12,7 @@ public class PropertyHolder {
 
     static {
         try {
-            prop.load(PropertyHolder.class.getClassLoader().getResourceAsStream("crab.properties"));
+            prop.load(PropertyHolder.class.getClassLoader().getResourceAsStream("wechat.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
