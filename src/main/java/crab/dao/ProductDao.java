@@ -105,7 +105,7 @@ public class ProductDao {
     }
 
     public List<Product> getByType(String type) {
-        return sessionFactory.getCurrentSession().createQuery(String.format("from Product where type='%s'", type.toUpperCase())).list();
+        return sessionFactory.getCurrentSession().createQuery(String.format("from Product where type='%s' order by orderIndex asc", type.toUpperCase())).list();
     }
 
     public void saveCardCode(CardCode cardCode) {

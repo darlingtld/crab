@@ -27,6 +27,7 @@ public class PropertyHolder {
 
     public static final String MENU_GO_SHOP = "微商城";
     public static final String MENU_BUY_CRAB = "我要购蟹";
+    public static final String MENU_ONSALE_INFO = "优惠信息";
     public static final String MENU_BUY_CARD = "我要购卡";
     public static final String MENU_MY_INFO = "我的信息";
     public static final String MENU_MY_CARDCODE = "我的提货券";

@@ -73,11 +73,11 @@ public class MenuManager {
         btn31.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/modules/card_expense/index.html", "UTF-8")));
 
         ViewButton btn32 = new ViewButton();
-        btn32.setName(PropertyHolder.MENU_CARDCODE_DELIVERY);
+        btn32.setName(PropertyHolder.MENU_POST_SALE_SERVICE);
         btn32.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/postservice.html", "UTF-8")));
 
         ViewButton btn33 = new ViewButton();
-        btn33.setName(PropertyHolder.MENU_CARDCODE_DELIVERY);
+        btn33.setName(PropertyHolder.MENU_ONSALE_INFO);
         btn33.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/onsaleinfo.html", "UTF-8")));
 
         ComplexButton mainBtn1 = new ComplexButton();
