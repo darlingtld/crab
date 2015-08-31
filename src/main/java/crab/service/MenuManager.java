@@ -72,6 +72,13 @@ public class MenuManager {
         btn31.setName(PropertyHolder.MENU_CARDCODE_DELIVERY);
         btn31.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/modules/card_expense/index.html", "UTF-8")));
 
+        ViewButton btn32 = new ViewButton();
+        btn32.setName(PropertyHolder.MENU_CARDCODE_DELIVERY);
+        btn32.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/postservice.html", "UTF-8")));
+
+        ViewButton btn33 = new ViewButton();
+        btn33.setName(PropertyHolder.MENU_CARDCODE_DELIVERY);
+        btn33.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "/onsaleinfo.html", "UTF-8")));
 
         ComplexButton mainBtn1 = new ComplexButton();
         mainBtn1.setName(PropertyHolder.MENU_GO_SHOP);
@@ -83,7 +90,7 @@ public class MenuManager {
 
         ComplexButton mainBtn3 = new ComplexButton();
         mainBtn3.setName(PropertyHolder.MENU_SERVICE_HALL);
-        mainBtn3.setSub_button(new ViewButton[]{btn31});
+        mainBtn3.setSub_button(new ViewButton[]{btn31, btn32, btn33});
 
         JSONArray jsonArray = new JSONArray();
         jsonArray.add(mainBtn1);

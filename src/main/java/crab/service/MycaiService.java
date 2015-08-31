@@ -59,13 +59,13 @@ public class MycaiService {
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
                 String eventType = requestMap.get("Event");
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                    String respContent = "您好，欢迎关注含嘉优品！";
-                    TextMessage textMessage = new TextMessage();
-                    textMessage.setToUserName(fromUserName);
-                    textMessage.setFromUserName(toUserName);
-                    textMessage.setCreateTime(new Date().getTime());
-                    textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
-                    textMessage.setContent(respContent);
+//                    String respContent = "您好，欢迎关注缘众大闸蟹！";
+//                    TextMessage textMessage = new TextMessage();
+//                    textMessage.setToUserName(fromUserName);
+//                    textMessage.setFromUserName(toUserName);
+//                    textMessage.setCreateTime(new Date().getTime());
+//                    textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+//                    textMessage.setContent(respContent);
 
                     Message message = new Message();
                     message.setOpenid(fromUserName);
@@ -85,17 +85,23 @@ public class MycaiService {
                         }
                     }.start();
 
-                    return MessageUtil.messageToXml(textMessage);
+//                    return MessageUtil.messageToXml(textMessage);
+                    NewsMessage newsMessage = new NewsMessage();
+                    newsMessage.setToUserName(fromUserName);
+                    newsMessage.setFromUserName(toUserName);
+                    newsMessage.setCreateTime(new Date().getTime());
+                    newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+                    newsMessage.setFuncFlag(0);
+                    List<Article> articleList = new ArrayList<Article>();
+                    Article article = new Article();
+                    article.setTitle("缘众大闸蟹");
+                    article.setPicUrl(PropertyHolder.SERVER + "/images/xiebaowanglogo.jpg");
+                    article.setUrl(PropertyHolder.SERVER + "?buy_type=shuichandonghuo");
+                    articleList.add(article);
+                    newsMessage.setArticleCount(articleList.size());
+                    newsMessage.setArticles(articleList);
+                    return MessageUtil.messageToXml(newsMessage);
                 } else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
-                } else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
-                    String eventKey = requestMap.get("EventKey");
-                    if (PropertyHolder.MENU_ABOUT_US.equals(eventKey)) {
-                        return eventService.doAboutUs(fromUserName, toUserName);
-                    } else if (PropertyHolder.MENU_NEW_PRODUCT.equals(eventKey)) {
-                        return eventService.doProductInquiry(fromUserName, toUserName);
-                    } else if (PropertyHolder.MENU_POST_SALE_SERVICE.equals(eventKey)) {
-                        return eventService.doPostSaleService(fromUserName, toUserName);
-                    }
                 }
             } else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
                 if ("code".equals(content.toLowerCase())) {
@@ -154,25 +160,25 @@ public class MycaiService {
                 textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
                 textMessage.setContent(respContent);
                 return MessageUtil.messageToXml(textMessage);
+            } else {
+
+
+                NewsMessage newsMessage = new NewsMessage();
+                newsMessage.setToUserName(fromUserName);
+                newsMessage.setFromUserName(toUserName);
+                newsMessage.setCreateTime(new Date().getTime());
+                newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+                newsMessage.setFuncFlag(0);
+                List<Article> articleList = new ArrayList<Article>();
+                Article article = new Article();
+                article.setTitle("缘众大闸蟹");
+                article.setPicUrl(PropertyHolder.SERVER + "/images/xiebaowanglogo.jpg");
+                article.setUrl(PropertyHolder.SERVER + "?buy_type=card");
+                articleList.add(article);
+                newsMessage.setArticleCount(articleList.size());
+                newsMessage.setArticles(articleList);
+                return MessageUtil.messageToXml(newsMessage);
             }
-
-
-            NewsMessage newsMessage = new NewsMessage();
-            newsMessage.setToUserName(fromUserName);
-            newsMessage.setFromUserName(toUserName);
-            newsMessage.setCreateTime(new Date().getTime());
-            newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
-            newsMessage.setFuncFlag(0);
-            List<Article> articleList = new ArrayList<Article>();
-            Article article = new Article();
-            article.setTitle("送达");
-            article.setDescription("上海三林地区最大的农产品移动电商平台̨");
-            article.setPicUrl(PropertyHolder.SERVER + "/images/logo.jpg");
-            article.setUrl(PropertyHolder.SERVER);
-            articleList.add(article);
-            newsMessage.setArticleCount(articleList.size());
-            newsMessage.setArticles(articleList);
-            return MessageUtil.messageToXml(newsMessage);
         } catch (Exception e) {
             e.printStackTrace();
 
