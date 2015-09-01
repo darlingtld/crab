@@ -46,6 +46,12 @@ cardcodeModule.controller('cardcodeDetailController', function ($http, $scope, $
     $http.get(url).success(function (data, status, headers, config) {
         $scope.products = data;
     });
+    $http.get(app + '/card/get/' + $scope.cardcode).success(function (data, status, headers, config) {
+        $scope.card = data;
+        if ($scope.card.used == false) {
+            $scope.usedCardcode = {display: 'none'}
+        }
+    });
 
 
 });

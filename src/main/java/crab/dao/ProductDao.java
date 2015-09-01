@@ -4,6 +4,7 @@ import crab.pojo.CardCode;
 import crab.pojo.Procurement;
 import crab.pojo.Product;
 import crab.pojo.ProductOrder;
+import crab.util.Utils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,11 +110,14 @@ public class ProductDao {
     }
 
     public void saveCardCode(CardCode cardCode) {
-        sessionFactory.getCurrentSession().save(cardCode);
+        Session session = sessionFactory.getCurrentSession();
+        session.save(cardCode);
+        session.flush();
+        session.clear();
     }
 
     public CardCode getUnusedCardCode(Integer productId) {
-        List<CardCode> cardCodeList = sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where productId = %d and used=false and openid is null", productId)).list();
+        List<CardCode> cardCodeList = sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where product.id = %d and used=false and openid is null", productId)).list();
         if (cardCodeList.isEmpty()) {
             return null;
         } else {
@@ -126,11 +130,19 @@ public class ProductDao {
     }
 
     public List<CardCode> getCardcodeByOpenid(String openid) {
-        return sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where openid='%s' and used=false order by startTime asc", openid)).list();
+        return sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where openid='%s' order by startTime asc", openid)).list();
     }
 
     public CardCode getCardByCode(String cardcode) {
         return (CardCode) sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where code='%s'", cardcode)).uniqueResult();
     }
 
+    public String generateCardCode() {
+        String cardcode = Utils.generateCardCode();
+        while (getCardByCode(cardcode) != null) {
+            cardcode = Utils.generateCardCode();
+        }
+        return cardcode;
+
+    }
 }

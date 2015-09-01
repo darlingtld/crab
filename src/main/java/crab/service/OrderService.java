@@ -16,8 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -61,9 +64,9 @@ public class OrderService {
             user.setBuyerAddress(order.getBuyerAddress());
             userDao.save(user);
         }
-        String code = generateConfirmCode();
+        String code = Utils.generateConfirmCode();
         while (isConfirmCodeExisted(code)) {
-            code = generateConfirmCode();
+            code = Utils.generateConfirmCode();
         }
         order.setConfirmCode(code);
 
@@ -72,21 +75,27 @@ public class OrderService {
         jsonObject.put("totalPrice", Utils.formatDouble(totalPrice, 2));
         order.setBill(jsonObject.toJSONString());
         markUsedCoupon(jsonObject.getString("usedCoupon"));
-        saveCrabCardIfAny(jsonObject.getJSONArray("items"), user.getOpenid());
+        JSONArray items = jsonObject.getJSONArray("items");
+        for (int i = 0; i < items.size(); i++) {
+            int amount = items.getJSONObject(i).getInteger("amount");
+            for (int j = 0; j < amount; j++) {
+                saveCrabCardIfAny(items.getJSONObject(i).getInteger("productId"), user.getOpenid());
+            }
+        }
         orderDao.save(order);
     }
 
-    private void saveCrabCardIfAny(JSONArray items, String openid) {
-        for (int i = 0; i < items.size(); i++) {
-            int productId = items.getJSONObject(i).getInteger("productId");
-            if (isItemTypeOfCard(productId)) {
-                CardCode cardCode = productDao.getUnusedCardCode(productId);
-                if (cardCode == null) {
-                    throw new IllegalStateException("存货不足");
-                }
-                int id = cardCode.getId();
-                productDao.markUnusedCardCode4User(id, openid);
-            }
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    private void saveCrabCardIfAny(int productId, String openid) {
+        if (isItemTypeOfCard(productId)) {
+            CardCode cardCode = new CardCode();
+            cardCode.setCode(productDao.generateCardCode());
+            cardCode.setStartTime(new Date());
+            cardCode.setEndTime(Date.from(LocalDateTime.of(2020, 12, 31, 23, 59).atZone(ZoneId.systemDefault()).toInstant()));
+            cardCode.setUsed(false);
+            cardCode.setProduct(productDao.getById(productId));
+            cardCode.setOpenid(openid);
+            productDao.saveCardCode(cardCode);
         }
     }
 
@@ -116,17 +125,6 @@ public class OrderService {
     @Transactional
     private boolean isConfirmCodeExisted(String code) {
         return orderDao.isConfirmCodeExisted(code);
-    }
-
-    private String generateConfirmCode() {
-        Random random = new Random();
-        random.setSeed(System.currentTimeMillis());
-        String value = String.valueOf(random.nextInt(1000000000));
-        StringBuffer code = new StringBuffer(value);
-        for (int i = 0; i < 9 - value.length(); i++) {
-            code.insert(0, "0");
-        }
-        return code.toString();
     }
 
     @Transactional

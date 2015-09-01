@@ -1,6 +1,7 @@
 package crab.other;
 
 import crab.util.PropertyHolder;
+import crab.util.Utils;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -52,20 +53,27 @@ public class Test {
         m.reset();
         m.update(plaintext.getBytes());
         byte[] digest = m.digest();
-        BigInteger bigInt = new BigInteger(1,digest);
+        BigInteger bigInt = new BigInteger(1, digest);
         String hashtext = bigInt.toString(16);
 // Now we need to zero pad it if you actually want the full 32 chars.
-        while(hashtext.length() < 32 ){
-            hashtext = "0"+hashtext;
+        while (hashtext.length() < 32) {
+            hashtext = "0" + hashtext;
         }
 
         System.out.println(hashtext);
     }
 
     @org.junit.Test
-    public void testPattern4Code(){
+    public void testPattern4Code() {
         String content = "123123223";
         System.out.println(Pattern.compile("\\d{9}").matcher(content).find());
+    }
+
+    @org.junit.Test
+    public void generateCardCode() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(Utils.generateCardCode());
+        }
     }
 
 }

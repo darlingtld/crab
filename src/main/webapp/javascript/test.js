@@ -1,7 +1,7 @@
 /**
  * Created by tangl9 on 2015-08-06.
  */
-var isTest = false;
+var isTest = true;
 if (isTest) {
     user = {
         nickname: 'lingda',

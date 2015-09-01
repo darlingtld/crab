@@ -42,6 +42,7 @@ public class OrderController {
         } catch (UnsupportedEncodingException e) {
             order.setUserId("unknown");
         } catch (Exception e) {
+            e.printStackTrace();
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
         }
     }
