@@ -45,6 +45,7 @@ public class OrderService {
 
     @Transactional
     public void save(Order order) {
+        logger.info(order.toString());
         User user = userDao.getUserByWechatId(order.getWechatId());
         if (user != null) {
             user.setConsignee(order.getConsignee());
@@ -85,13 +86,15 @@ public class OrderService {
         orderDao.save(order);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @SuppressWarnings("deprecation")
     private void saveCrabCardIfAny(int productId, String openid) {
         if (isItemTypeOfCard(productId)) {
             CardCode cardCode = new CardCode();
             cardCode.setCode(productDao.generateCardCode());
             cardCode.setStartTime(new Date());
-            cardCode.setEndTime(Date.from(LocalDateTime.of(2020, 12, 31, 23, 59).atZone(ZoneId.systemDefault()).toInstant()));
+            Date endTime = new Date();
+            endTime.setYear(2020);
+            cardCode.setEndTime(endTime);
             cardCode.setUsed(false);
             cardCode.setProduct(productDao.getById(productId));
             cardCode.setOpenid(openid);
