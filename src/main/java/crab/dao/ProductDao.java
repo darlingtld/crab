@@ -149,4 +149,8 @@ public class ProductDao {
     public List<CardCode> getCardcodeAll() {
         return sessionFactory.getCurrentSession().createQuery(String.format("from CardCode order by startTime desc")).list();
     }
+
+    public void changeCardcodeOwner(String code, String fromOpenid, String toOpenid) {
+        sessionFactory.getCurrentSession().createQuery(String.format("update CardCode set openid='%s' where code='%s' and openid='%s'", toOpenid, code, fromOpenid)).executeUpdate();
+    }
 }

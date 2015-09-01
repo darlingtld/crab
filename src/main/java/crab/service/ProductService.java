@@ -17,6 +17,8 @@ import java.io.File;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by darlingtld on 2015/5/16.
@@ -334,5 +336,24 @@ public class ProductService {
     @Transactional
     public List<CardCode> getCardAll() {
         return productDao.getCardcodeAll();
+    }
+
+    @Transactional
+    public void givePresent(String presentUrl) {
+        Matcher matcher = Pattern.compile("[card](\\w+)[from](\\w+)[to](\\w+)").matcher(presentUrl);
+        if (matcher.find()) {
+            System.out.println(matcher.group(1));
+            System.out.println(matcher.group(2));
+            String code = matcher.group(1);
+            String fromOpenid = matcher.group(2);
+            String toOpenid = matcher.group(3);
+            CardCode cardCode=getCardByCode(code);
+            if(cardCode.isUsed()){
+                throw new RuntimeException("used card");
+            }
+            productDao.changeCardcodeOwner(code, fromOpenid, toOpenid);
+        } else {
+            throw new RuntimeException("wrong format");
+        }
     }
 }

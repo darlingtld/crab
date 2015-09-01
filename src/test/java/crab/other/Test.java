@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -65,8 +66,12 @@ public class Test {
 
     @org.junit.Test
     public void testPattern4Code() {
-        String content = "123123223";
-        System.out.println(Pattern.compile("\\d{9}").matcher(content).find());
+        String content = "http://songdatech.com/card/1234/from/45676";
+        Matcher matcher = Pattern.compile("card/(\\w+)/from/(\\w+)").matcher(content);
+        if (matcher.find()) {
+            System.out.println(matcher.group(1));
+            System.out.println(matcher.group(2));
+        }
     }
 
     @org.junit.Test

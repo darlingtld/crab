@@ -179,14 +179,16 @@ table.register span {
 }
 
 .coupon-info {
-    color: chocolate;
+    color: rgb(250, 255, 0);
     display: block;
     font-family: fantasy;
-    font-size: x-large;
+    font-size: xx-large;
+    font-weight: bolder;
 }
 
 .coupon-limit {
     font-size: small;
+    color: darkgreen;
 }
 
 .code {

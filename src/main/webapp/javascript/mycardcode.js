@@ -48,12 +48,24 @@ cardcodeModule.controller('cardcodeDetailController', function ($http, $scope, $
     });
     $http.get(app + '/card/get/' + $scope.cardcode).success(function (data, status, headers, config) {
         $scope.card = data;
+        $scope.card.presentUrl = '[card]' + $scope.cardcode + '[from]' + $scope.card.openid;
         if ($scope.card.used == false) {
             $scope.usedCardcode = {display: 'none'}
         }
     });
 
 
+});
+cardcodeModule.controller('presentController', function ($http, $scope, $routeParams) {
+    $('#refresh').text('回到我的提货券');
+    $scope.getPresent = function () {
+        var url = app + '/card/presenturl/' + $scope.presentUrl + '[to]' + wechatId;
+        $http.post(url, {}).success(function (data, status, headers, config) {
+            alert("获取成功");
+        }).error(function () {
+            alert("获取失败");
+        });
+    }
 });
 
 cardcodeModule.config(['$routeProvider', function ($routeProvider) {
@@ -65,6 +77,10 @@ cardcodeModule.config(['$routeProvider', function ($routeProvider) {
         .when('/cardcode/detail/:id/:cardcode', {
             controller: 'cardcodeDetailController',
             templateUrl: 'cardcode_detail.html'
+        })
+        .when('/present', {
+            controller: 'presentController',
+            templateUrl: 'present.html'
         })
         .otherwise({
             redirectTo: '/cardcode/all'

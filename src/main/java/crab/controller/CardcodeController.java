@@ -48,4 +48,11 @@ public class CardcodeController {
         return productService.getCardAll();
     }
 
+    @RequestMapping(value = "/presenturl/{presenturl}", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    public
+    @ResponseBody
+    void expenseCard(@PathVariable("presenturl") String presentUrl, HttpServletResponse response) {
+        productService.givePresent(presentUrl);
+    }
+
 }
