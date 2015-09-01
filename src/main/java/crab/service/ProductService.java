@@ -340,7 +340,7 @@ public class ProductService {
 
     @Transactional
     public void givePresent(String presentUrl) {
-        Matcher matcher = Pattern.compile("[card](\\w+)[from](\\w+)[to](\\w+)").matcher(presentUrl);
+        Matcher matcher = Pattern.compile("\\[card\\](\\w+)\\[from\\](\\w+)\\[to\\](\\w+)").matcher(presentUrl);
         if (matcher.find()) {
             System.out.println(matcher.group(1));
             System.out.println(matcher.group(2));

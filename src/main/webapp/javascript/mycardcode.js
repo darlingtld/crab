@@ -62,6 +62,7 @@ cardcodeModule.controller('presentController', function ($http, $scope, $routePa
         var url = app + '/card/presenturl/' + $scope.presentUrl + '[to]' + wechatId;
         $http.post(url, {}).success(function (data, status, headers, config) {
             alert("获取成功");
+            location.reload();
         }).error(function () {
             alert("获取失败");
         });
