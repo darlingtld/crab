@@ -1,0 +1,56 @@
+<div class="container">
+    <!--<button id="add_coupon" class="menu-product btn btn-info btn-sm" ng-click="create()" data-toggle="modal"-->
+    <!--data-target="#createDialog">发放卡券-->
+    <!--</button>-->
+    <!--<button id="export_coupon" class="btn btn-success btn-sm export_button hidden" ng-click="export()">导出Excel</button>-->
+    <table class="table table-bordered table-hover table-responsive">
+        <thead>
+        <tr>
+            <!--<th ng-click="f='owner'; rev=!rev">所有者 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>-->
+            <!--</th>-->
+            <th ng-click="f='type'; rev=!rev">产品 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></th>
+            <th ng-click="f='description'; rev=!rev">描述 <span class="glyphicon glyphicon-sort"
+                                                              aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='startTime'; rev=!rev">起始时间 <span class="glyphicon glyphicon-sort"
+                                                              aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='endTime'; rev=!rev">结束时间 <span class="glyphicon glyphicon-sort"
+                                                            aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='used'; rev=!rev">已使用 <span class="glyphicon glyphicon-sort"
+                                                        aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='consignee'; rev=!rev">收货人 <span class="glyphicon glyphicon-sort"
+                                                             aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='consigneeContact'; rev=!rev">联系方式 <span class="glyphicon glyphicon-sort"
+                                                                     aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='consigneeDatetime'; rev=!rev">收货时间 <span class="glyphicon glyphicon-sort"
+                                                                      aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='buyerAddress'; rev=!rev">收货地址 <span class="glyphicon glyphicon-sort"
+                                                                 aria-hidden="true"></span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="card in cardList | orderBy: f : rev">
+            <!--<td ng-bind="card.openid"></td>-->
+            <td ng-bind="card.product.name"></td>
+            <td ng-bind="card.product.description"></td>
+            <td ng-bind="card.startTime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
+            <td ng-bind="card.endTime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
+            <td ng-bind="card.used | tochinese"></td>
+            <td ng-bind="card.consignee"></td>
+            <td ng-bind="card.consigneeContact"></td>
+            <td ng-bind="card.consigneeDatetime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
+            <td ng-bind="card.buyerAddress"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+

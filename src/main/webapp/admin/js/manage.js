@@ -4,8 +4,8 @@
 var adminModule = angular.module('AdminModule', ['ngRoute']);
 var app = '/crab';
 var cdata = {
-    "卡券":{
-        "礼品卡":"category/lipinka",
+    "卡券": {
+        "礼品卡": "category/lipinka",
     },
     "蔬商水果": {
         "叶商类": "category/yecailei",
@@ -58,7 +58,7 @@ var cdata = {
 }
 
 var tdata = {
-    "卡券":"card",
+    "卡券": "card",
     "蔬商水果": "shucaishuiguo",
     "禽肉蛋类": "qinroudanlei",
     "水产冻货": "shuichandonghuo",
@@ -173,6 +173,7 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
         $('#unit').val(product.unit);
         $('#pic').attr('src', app + "/" + product.picurl);
         $('#ppic').val('');
+        $('#detail').val(product.detail);
     };
 
     $scope.delete = function (id) {
@@ -195,6 +196,7 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
         $('#uprice').val('');
         $('#uunit').val('');
         $('#upic').val('');
+        $('#udetail').val('');
     };
 
     $scope.export = function () {
@@ -211,6 +213,7 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
             product.append("category", $('#category').val());
             product.append("price", $('#price').val());
             product.append("unit", $('#unit').val());
+            product.append("detail", $("#detail").val());
             product.append("pic", $("#ppic").get(0).files[0]);
             $.ajax({
                 type: 'POST',
@@ -235,25 +238,30 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
                 type: $('#type').val(),
                 category: $('#category').val(),
                 price: $('#price').val(),
-                unit: $('#unit').val()
+                unit: $('#unit').val(),
+                detail: $('#detail').val()
             };
-
-            $.ajax({
-                type: "post",
-                url: app + "/product/update",
-                contentType: "application/json",
-                data: JSON.stringify(product),
-                success: function (data) {
-                    alert('保存成功！');
-                    location.reload();
-                },
-                error: function (data) {
-                    alert('保存失败!');
-                    location.reload();
-                }
-            });
+            if (validate(product)) {
+                $.ajax({
+                    type: "post",
+                    url: app + "/product/update",
+                    contentType: "application/json",
+                    data: JSON.stringify(product),
+                    success: function (data) {
+                        alert('保存成功！');
+                        location.reload();
+                    },
+                    error: function (data) {
+                        alert('保存失败!');
+                        location.reload();
+                    }
+                });
+            } else {
+                location.reload();
+            }
         }
     }
+
 
     function validateProduct() {
         if ($('#uname').val() == '') {
@@ -274,8 +282,37 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
         } else if ($('#uunit').val() == '') {
             alert("请填写单位");
             return false;
+        } else if ($('#udetail').val() == '') {
+            alert("请填写详细");
+            return false;
         } else if ($('#upic').val() == '') {
             alert("请上传图片");
+            return false;
+        }
+        return true;
+    }
+
+    function validate(product) {
+        if (product.name == '') {
+            alert("请填写名字");
+            return false;
+        } else if (product.description == '') {
+            alert("请填写描述");
+            return false;
+        } else if (product.type == '') {
+            alert("请填写大类");
+            return false;
+        } else if (product.category == '') {
+            alert("请填写小类");
+            return false;
+        } else if (product.price == '') {
+            alert("请填写价格");
+            return false;
+        } else if (product.unit == '') {
+            alert("请填写单位");
+            return false;
+        } else if (product.detail == '') {
+            alert("请填写详细");
             return false;
         }
         return true;
@@ -290,6 +327,7 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
             product.append("category", $('#ucategory').val());
             product.append("price", $('#uprice').val());
             product.append("unit", $('#uunit').val());
+            product.append("detail", $("#udetail").val());
             product.append("pic", $("#upic").get(0).files[0]);
 
 
@@ -501,89 +539,100 @@ adminModule.controller('messageController', function ($scope, $http) {
         $scope.openid2Send = openid;
     }
     $scope.send = function () {
-        var message = {
-            openid: $scope.openid2Send,
-            content: $('#message-body').val(),
-            ts: new Date(),
-            read: false
-        }
-        console.log(message)
-        $http.post(app + '/message/create', message).success(function () {
-            alert('消息发送成功');
-            window.location.href = app + '/admin/manage.html#/message';
-            window.location.reload();
-        }).error(function () {
-            alert('消息发送失败');
-            window.location.href = app + '/admin/manage.html#/message';
-            window.location.reload();
-        });
-    }
-
-
-})
-;
-adminModule.filter('translate', function () {
-    return function (text, type) {
-        if (!angular.isString(text)) {
-            return text;
-        }
-        var translatedText;
-
-        if (type == 't') {
-            for (var key in tdata) {
-                if (tdata[key].toUpperCase().indexOf(text) != -1) {
-                    //console.log(key + " " + vkey);
-                    translatedText = key;
-                    return translatedText;
-                }
+            var message = {
+                openid: $scope.openid2Send,
+                content: $('#message-body').val(),
+                ts: new Date(),
+                read: false
             }
-        } else {
-            for (var key in cdata) {
-                for (var vkey in cdata[key]) {
-                    if (cdata[key][vkey].toUpperCase().indexOf(text) != -1) {
+            console.log(message)
+            $http.post(app + '/message/create', message).success(function () {
+                alert('消息发送成功');
+                window.location.href = app + '/admin/manage.html#/message';
+                window.location.reload();
+            }).error(function () {
+                alert('消息发送失败');
+                window.location.href = app + '/admin/manage.html#/message';
+                window.location.reload();
+            });
+        }
+});
+
+adminModule.controller('cardcodeController', function ($scope, $http) {
+    $('li[role]').removeClass('active');
+    $('li[role="manage_cardcode"]').addClass('active');
+    $http.get(app + '/card/get/all').success(function (data) {
+        $scope.cardList = data;
+    });
+
+
+});
+    adminModule.filter('translate', function () {
+        return function (text, type) {
+            if (!angular.isString(text)) {
+                return text;
+            }
+            var translatedText;
+
+            if (type == 't') {
+                for (var key in tdata) {
+                    if (tdata[key].toUpperCase().indexOf(text) != -1) {
                         //console.log(key + " " + vkey);
-                        translatedText = vkey;
+                        translatedText = key;
                         return translatedText;
                     }
                 }
+            } else {
+                for (var key in cdata) {
+                    for (var vkey in cdata[key]) {
+                        if (cdata[key][vkey].toUpperCase().indexOf(text) != -1) {
+                            //console.log(key + " " + vkey);
+                            translatedText = vkey;
+                            return translatedText;
+                        }
+                    }
+                }
             }
-        }
-    };
-});
+        };
+    });
 
-adminModule.filter('tochinese', function () {
-    return function (text) {
-        if (text == true) {
-            return '是'
-        } else {
-            return '否'
-        }
-    };
-});
+    adminModule.filter('tochinese', function () {
+        return function (text) {
+            if (text == true) {
+                return '是'
+            } else {
+                return '否'
+            }
+        };
+    });
 
-adminModule.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider
-        .when('/order', {
-            controller: 'orderController',
-            templateUrl: 'orders.html'
-        })
-        .when('/product/category/:category', {
-            controller: 'productController',
-            templateUrl: 'product.html'
-        })
-        .when('/dispatch', {
-            controller: 'dispatchController',
-            templateUrl: 'dispatch.html'
-        })
-        .when('/coupon', {
-            controller: 'couponController',
-            templateUrl: 'coupon.html'
-        })
-        .when('/message', {
-            controller: 'messageController',
-            templateUrl: 'message.html'
-        })
-        .otherwise({
-            redirectTo: '/product/category/lipinka'
-        });
-}]);
+    adminModule.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+            .when('/order', {
+                controller: 'orderController',
+                templateUrl: 'orders.html'
+            })
+            .when('/product/category/:category', {
+                controller: 'productController',
+                templateUrl: 'product.html'
+            })
+            .when('/dispatch', {
+                controller: 'dispatchController',
+                templateUrl: 'dispatch.html'
+            })
+            .when('/coupon', {
+                controller: 'couponController',
+                templateUrl: 'coupon.html'
+            })
+            .when('/message', {
+                controller: 'messageController',
+                templateUrl: 'message.html'
+            })
+            .when('/cardcode', {
+                controller: 'cardcodeController',
+                templateUrl: 'cardcode.html'
+            })
+            .otherwise({
+                redirectTo: '/product/category/lipinka'
+            });
+    }]);

@@ -130,7 +130,7 @@ public class ProductDao {
     }
 
     public List<CardCode> getCardcodeByOpenid(String openid) {
-        return sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where openid='%s' order by startTime asc", openid)).list();
+        return sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where openid='%s' order by startTime desc", openid)).list();
     }
 
     public CardCode getCardByCode(String cardcode) {
@@ -144,5 +144,9 @@ public class ProductDao {
         }
         return cardcode;
 
+    }
+
+    public List<CardCode> getCardcodeAll() {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from CardCode order by startTime desc")).list();
     }
 }

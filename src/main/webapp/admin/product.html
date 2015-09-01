@@ -9,23 +9,22 @@
     <button id="save_sort" class="menu-product btn btn-primary btn-sm" ng-click="saveSort()" style="display: none">保存顺序
     </button>
 
-    <button id="export_product" class="menu-product btn btn-success btn-sm export_button" ng-click="export()">导出Excel
-    </button>
+    <button id="export_product" class="menu-product btn btn-success btn-sm export_button" ng-click="export()">导出Excel</button>
     <select class="product-picker form-control" ng-model="categorySelected" ng-change="changedValue(categorySelected)">
 
     </select>
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th width="10%">名字</th>
-            <th width="20%">描述</th>
-            <th width="10%">大类</th>
-            <th width="10%">小类</th>
-            <th width="10%">采购价（元）</th>
-            <th width="10%">利润系数</th>
-            <th width="10%">出售价格（元）</th>
-            <th width="10%">单位</th>
-            <th width="10%" class="operation">操作</th>
+            <th>名字</th>
+            <th>描述</th>
+            <th>大类</th>
+            <th>小类</th>
+            <th>采购价（元）</th>
+            <th>利润系数</th>
+            <th>出售价格（元）</th>
+            <th>单位</th>
+            <th class="operation">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -91,7 +90,7 @@
                 <div class="input-group input-group">
                     <span class="input-group-addon">大类:</span>
                     <select id="type" ng-model="selectedType" ng-options="t.name for t in typeMap track by t.value"
-                            class="form-control" style="color: red;">
+                            class="form-control"  style="color: red;">
                         <option value="">--- 请选择 ---</option>
                     </select>
                 </div>
@@ -110,6 +109,10 @@
                 <div class="input-group input-group">
                     <span class="input-group-addon">单位:</span>
                     <input type="text" class="form-control" id="unit">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">详细:</span>
+                    <textarea rows="6" class="form-control" id="detail"/>
                 </div>
                 <div class="input-group input-group" style="display: table;">
                     <span class="input-group-addon">图片:</span>
@@ -149,7 +152,7 @@
                 <div class="input-group input-group">
                     <span class="input-group-addon">大类:</span>
                     <select id="utype" ng-model="selectedType" ng-options="t.name for t in typeMap track by t.value"
-                            class="form-control" style="color: red;">
+                            class="form-control"  style="color: red;">
                         <option value="">--- 请选择 ---</option>
                     </select>
                 </div>
@@ -157,7 +160,7 @@
                     <span class="input-group-addon">小类:</span>
                     <select id="ucategory" ng-model="selectedCategory"
                             ng-options="c.key for c in selectedType.list track by c.value"
-                            class="form-control" style="color: red;">
+                            class="form-control"  style="color: red;">
                         <option value="">--- 请选择 ---</option>
                     </select>
                 </div>
@@ -168,6 +171,10 @@
                 <div class="input-group input-group">
                     <span class="input-group-addon">单位:</span>
                     <input type="text" class="form-control" id="uunit">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">详细:</span>
+                    <textarea rows="6" class="form-control" id="udetail"/>
                 </div>
                 <div class="input-group input-group">
                     <span class="input-group-addon">图片:</span>

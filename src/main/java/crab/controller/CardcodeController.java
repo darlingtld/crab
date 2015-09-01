@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequestMapping("/card")
@@ -38,6 +39,13 @@ public class CardcodeController {
     @ResponseBody
     CardCode getCard(@PathVariable("cardcode") String cardCode) {
         return productService.getCardByCode(cardCode);
+    }
+
+    @RequestMapping(value = "/get/all", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<CardCode> getAllCard() {
+        return productService.getCardAll();
     }
 
 }
