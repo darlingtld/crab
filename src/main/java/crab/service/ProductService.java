@@ -177,6 +177,7 @@ public class ProductService {
             productInDB.setCategory(product.getCategory());
             productInDB.setPrice(Utils.formatDouble(product.getPrice(), 2));
             productInDB.setUnit(product.getUnit());
+            productInDB.setDetail(product.getDetail());
             productInDB.setDataChangeLastTime(new Timestamp(System.currentTimeMillis()));
             if (product.getPicurl() != null) {
                 productInDB.setPicurl(product.getPicurl());
@@ -328,5 +329,10 @@ public class ProductService {
     @Transactional
     public CardCode getCardByCode(String cardCode) {
         return productDao.getCardByCode(cardCode);
+    }
+
+    @Transactional
+    public List<CardCode> getCardAll() {
+        return productDao.getCardcodeAll();
     }
 }
