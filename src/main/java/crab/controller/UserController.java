@@ -63,4 +63,5 @@ public class UserController {
         logger.info("Get all users");
         return userService.getAll();
     }
+
 }

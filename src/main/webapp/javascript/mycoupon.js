@@ -11,7 +11,7 @@ couponModule.config(function () {
 });
 
 couponModule.controller('couponController', function ($http, $scope) {
-    var url = app + '/coupon/all/wechatid/' + wechatId;
+    var url = app + '/coupon/all/wechatid/';
     if (user == undefined || user == null) {
         var code = getURLParameter('code');
         $http.get(app + "/user/code/" + code).success(function (data, status, headers, config) {
@@ -19,7 +19,7 @@ couponModule.controller('couponController', function ($http, $scope) {
             wechatId = user.openid;
             $('img.user-icon').attr('src', user.headimgurl);
             setLocalStorage('wechatId', wechatId);
-            $http.get(url).success(function (data, status, headers, config) {
+            $http.get(url + wechatId).success(function (data, status, headers, config) {
                 $scope.coupons = data;
             });
         });
@@ -28,7 +28,7 @@ couponModule.controller('couponController', function ($http, $scope) {
         wechatId = getLocalStorage('wechatId');
     }
     if ($scope.coupons == undefined) {
-        $http.get(url).success(function (data, status, headers, config) {
+        $http.get(url + wechatId).success(function (data, status, headers, config) {
             $scope.coupons = data;
         });
     }

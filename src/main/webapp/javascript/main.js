@@ -14,7 +14,6 @@ var wechatId;
 var username;
 var buyType = getURLParameter('buy_type');
 
-
 module.service('authService', function ($http) {
     this.getUserInfo = function (callback) {
         if (user != undefined && user != null) {

@@ -28,7 +28,7 @@ module.controller('routerController', function ($http, $scope, $location) {
 });
 
 module.controller('orderController', function ($http, $scope) {
-    var url = app + '/order/get/' + wechatId;
+    var url = app + '/order/get/';
     if (user == undefined || user == null) {
         var code = getURLParameter('code');
         $http.get(app + "/user/code/" + code).success(function (data, status, headers, config) {
@@ -36,7 +36,7 @@ module.controller('orderController', function ($http, $scope) {
             wechatId = user.openid;
             $('img.user-icon').attr('src', user.headimgurl);
             setLocalStorage('wechatId', wechatId);
-            $http.get(url).success(function (data, status, headers, config) {
+            $http.get(url + wechatId).success(function (data, status, headers, config) {
                 $scope.orders = data;
             });
         });
@@ -45,7 +45,7 @@ module.controller('orderController', function ($http, $scope) {
         wechatId = getLocalStorage('wechatId');
     }
     if ($scope.orders == undefined) {
-        $http.get(url).success(function (data, status, headers, config) {
+        $http.get(url + wechatId).success(function (data, status, headers, config) {
             $scope.orders = data;
         });
     }
