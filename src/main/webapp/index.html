@@ -37,8 +37,23 @@
             <span id="onMenuShareAppMessage" class="glyphicon glyphicon-share-alt" aria-hidden="true" style="color: #b7dfc9;"></span>
         </div>
     </div>
+    <div class="js-menu-bar" id="ma-menu-bar"
+         style="height:47px; width:100%; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling: touch; position:relative;">
+        <!--<div class="menu-mask"-->
+             <!--style="height:37px; background-color:rgba(0,0,0,0.6); text-align:center; line-height:37px; color:#fff; font-size:14px; font-weight:bold; position:absolute; top:0; left:0; width:100%;">-->
+            <!--<&#45;&#45; 左右滑动切换分类哦~ &ndash;&gt;-->
+        <!--</div>-->
+        <ul class="menu fl"></ul>
+
+        <div class="clear"></div>
+    </div>
 </div>
 <div class="js-content">
+    <div id="subCategoryBlock" class="fl scroll-y leftSider"
+         style="height:100%;width:25%; position:relative;">
+        <ul class="js-category" style="margin-bottom:80px;">
+        </ul>
+    </div>
     <div id="mainListBlock" class="fl scroll-y">
         <ng-view></ng-view>
     </div>
@@ -81,6 +96,95 @@
 <script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.datetime.js"></script>
 <script type="text/javascript" src="javascript/mobiscroll/js/mobiscroll.select.js"></script>
 <script type="text/javascript" src="javascript/mobiscroll/js/i18n/mobiscroll.i18n.zh.js"></script>
+<script>
+    (function () {
+        $('.menu-mask').on('touchstart click', function () {
+            $(this).hide();
+        })
+        //global variables
+        var $category = $(".js-category");
+        var $navga = $('.menu');
+        var $curCat1, $curCat2;
+        var ccat1, ccat2;
+        $(".js-content").css("height", ($(window).height() - $(".js-reminder").height() - $(".js-menu-bar").height() - $(".js-footer").height()) + "px");
+        $(".js-search-content").css("height", $(window).height() - 90);
 
+        if (PlusMinus.isLowerAndriod3()) {
+            PlusMinus.touchScroll("subCategoryBlock");
+            PlusMinus.touchScroll("mainListBlock");
+            PlusMinus.touchScrollY("ma-menu-bar");
+        }
+
+        function geneLevel2DOM(data, ccat1) {
+            var level2HTML = "";
+            _.each(_.pairs(data[ccat1]), function (item) {
+                level2HTML += "<li class='cp'><a href='#/nav/category/" + item[1] + "'>" + item[0] + "</a></li>";
+            });
+            $category.html("").append($(level2HTML));
+
+            //bind category event
+            _.each($category.find("li"), function (item) {
+                $item = $(item);
+                $item.click(function () {
+                    resetCategoryBgColor($curCat2);
+                    $this = $curCat2 = $(this);
+                    ccat2 = $this.text().trim();
+                    $this.addClass("active");
+                });
+            });
+
+            $firstCategory = $($category.find("li")[0]);
+            if ($firstCategory) {
+                $curCat2 = $firstCategory;
+                $firstCategory.click();
+            }
+        }
+
+        function resetCategoryBgColor($link) {
+            if (!$link) return;
+            $link.removeClass("active");
+        }
+
+        window.data = {
+            "礼品卡": {
+                "精品卡": "jingpinka",
+                "豪华卡": "haohuaka",
+                "至尊卡": "zhizunka"
+            }
+        };
+        var navHtml = '';
+        window.hasFavorite = true;
+        _.each(_.keys(data), function (key) {
+            navHtml += "<li>" + key + "</li>";
+        });
+
+        $navga.append($(navHtml));
+
+
+        _.each($navga.find("li"), function (item) {
+            var $item = $(item);
+            $item.click(function () {
+                resetCategoryBgColor($curCat1);
+                $this = $curCat1 = $(this);
+                ccat1 = $this.text().trim();
+                $this.addClass("active");
+                geneLevel2DOM(data, ccat1);
+
+            });
+        });
+
+        var $level1 = $($navga.find("li")[0]);
+        if ($level1) {
+            $curCat1 = $level1;
+            $level1.click();
+        }
+
+        $('ul.menu').on('click', 'li', function () {
+            restoreBuyPage();
+
+            $category.find("li>a")[0].click();
+        })
+    }());
+</script>
 </body>
 </html>

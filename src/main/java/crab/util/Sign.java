@@ -34,14 +34,15 @@ public class Sign {
     private static JSONObject generateWXConfig() {
         RestTemplate restTemplate = new RestTemplate();
         String getAccessTokenUrl = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s", PropertyHolder.APPID, PropertyHolder.APPSECRET);
+        System.out.println("[wxconfig getAccessTokenUrl]" + getAccessTokenUrl);
         String retData = restTemplate.getForObject(getAccessTokenUrl, String.class, new HashMap<String, Object>());
-        System.out.println("[Acess Token returned data] " + retData);
+        System.out.println("[wxconfig Access Token returned data] " + retData);
 
         JSONObject jsonObject = JSON.parseObject(retData);
         String accessToken = jsonObject.getString("access_token");
         String jsapiTicketUrl = String.format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi", accessToken);
         retData = restTemplate.getForObject(jsapiTicketUrl, String.class, new HashMap<String, Object>());
-        System.out.println("[jsapiTicketUrl returned data] " + retData);
+        System.out.println("[wxconfig jsapiTicketUrl returned data] " + retData);
 
         jsonObject = JSON.parseObject(retData);
         String jsapi_ticket = jsonObject.getString("ticket");

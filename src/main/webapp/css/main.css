@@ -177,7 +177,7 @@ div.checkout_info {
 }
 
 .js-content {
-    /*margin-top: 40px;*/
+    margin-top: 40px;
 }
 
 table.register input {
@@ -299,14 +299,11 @@ body {
     display: none;
 }
 
-/*.slidesjs-container{*/
-    /*width: 100%;*/
-/*}*/
 
 #mainListBlock {
     position: relative;
     height: 100%;
-    width: 100%;
+    width: 75%;
     -webkit-overflow-scrolling: touch;
 }
 

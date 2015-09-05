@@ -12,7 +12,7 @@ var bill = {
 var user;
 var wechatId;
 var username;
-var buyType = getURLParameter('buy_type');
+//var buyType = getURLParameter('buy_type');
 
 module.service('authService', function ($http) {
     this.getUserInfo = function (callback) {
@@ -87,7 +87,7 @@ module.controller('mainController', function ($scope, $location, authService) {
 
 module.controller('navController', function ($scope, $http, $routeParams) {
     goToNav();
-    var url = app + '/nav/type/' + $routeParams.type;
+    var url = app + '/nav/category/' + $routeParams.category;
     $http.get(url).success(function (data, status, headers, config) {
         $scope.productList = data;
     });
@@ -435,7 +435,7 @@ module.config(['$routeProvider', function ($routeProvider) {
             controller: 'submitController',
             templateUrl: 'success.html'
         })
-        .when('/nav/:type', {
+        .when('/nav/category/:category', {
             controller: 'navController',
             templateUrl: 'nav.html'
         })
@@ -460,7 +460,7 @@ module.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'message_all.html'
         })
         .otherwise({
-            redirectTo: '/nav/' + buyType
+            redirectTo: '/nav/category/jingpinka'
         });
 }]);
 
@@ -710,10 +710,15 @@ function goToRegister() {
 }
 
 function goToNav() {
+    $('#subCategoryBlock').show();
+    $('#mainListBlock').css('width', '75%');
+    $('#ma-menu-bar').show();
     $('footer').hide();
 }
 
 function goToProduct() {
+    $('#subCategoryBlock').hide();
+    $('#mainListBlock').css('width', '100%');
     $('footer').show();
 }
 

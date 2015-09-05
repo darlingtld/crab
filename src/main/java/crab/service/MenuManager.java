@@ -48,8 +48,8 @@ public class MenuManager {
         String oauthUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 
         ViewButton btn11 = new ViewButton();
-        btn11.setName(PropertyHolder.MENU_BUY_CRAB);
-        btn11.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER + "?buy_type=shuichandonghuo", "UTF-8")));
+        btn11.setName(PropertyHolder.MENU_GO_SHOP);
+        btn11.setUrl(oauthUrl.replace("$appid", PropertyHolder.APPID).replace("$redirect_uri", URLEncoder.encode(PropertyHolder.SERVER, "UTF-8")));
 
         ViewButton btn12 = new ViewButton();
         btn12.setName(PropertyHolder.MENU_BUY_CARD);
@@ -93,7 +93,7 @@ public class MenuManager {
         mainBtn3.setSub_button(new ViewButton[]{btn31, btn32, btn33});
 
         JSONArray jsonArray = new JSONArray();
-        jsonArray.add(mainBtn1);
+        jsonArray.add(btn11);
         jsonArray.add(mainBtn2);
         jsonArray.add(mainBtn3);
 

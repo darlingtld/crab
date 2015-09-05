@@ -206,7 +206,9 @@ public class ProductService {
     public Map<Type, List<Category>> getTypeMap() {
         Map<Type, List<Category>> typeListMap = new TreeMap<>();
         List<Category> cardList = new ArrayList<>();
-        cardList.add(Category.LIPINKA);
+        cardList.add(Category.JINGPINKA);
+        cardList.add(Category.HAOHUAKA);
+        cardList.add(Category.ZHIZUNKA);
         typeListMap.put(Type.CARD, cardList);
         List<Category> machineList = new ArrayList<>();
         machineList.add(Category.NIANMIJI);
@@ -347,8 +349,8 @@ public class ProductService {
             String code = matcher.group(1);
             String fromOpenid = matcher.group(2);
             String toOpenid = matcher.group(3);
-            CardCode cardCode=getCardByCode(code);
-            if(cardCode.isUsed()){
+            CardCode cardCode = getCardByCode(code);
+            if (cardCode.isUsed()) {
                 throw new RuntimeException("used card");
             }
             productDao.changeCardcodeOwner(code, fromOpenid, toOpenid);

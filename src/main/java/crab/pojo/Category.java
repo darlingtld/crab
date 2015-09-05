@@ -9,7 +9,9 @@ public enum Category {
     NIANMIJI("碾米机"),
 
     //  CARD("卡券")，
-    LIPINKA("礼品卡"),
+    JINGPINKA("精品卡"),
+    HAOHUAKA("豪华卡"),
+    ZHIZUNKA("至尊卡"),
 
     //  SHUCAISHUIGUO("蔬菜水果"),
     YECAILEI("叶菜类"),
