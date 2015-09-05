@@ -8,15 +8,141 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.UUID;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Formatter;
+import java.util.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.io.UnsupportedEncodingException;
 
-class Sign {
+public class Sign {
+    private static Calendar thisTime = Calendar.getInstance();
+    private static Calendar startTime = Calendar.getInstance();
+    private static JSONObject config;
+
+    public static JSONObject getWXConfig() {
+        thisTime = Calendar.getInstance();
+        thisTime.add(Calendar.HOUR, -1);
+        if (config != null && thisTime.before(startTime)) {
+            return config;
+        } else {
+            startTime = Calendar.getInstance();
+            thisTime = Calendar.getInstance();
+            config = generateWXConfig();
+            return config;
+        }
+    }
+
+    private static JSONObject generateWXConfig() {
+        RestTemplate restTemplate = new RestTemplate();
+        String getAccessTokenUrl = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s", PropertyHolder.APPID, PropertyHolder.APPSECRET);
+        String retData = restTemplate.getForObject(getAccessTokenUrl, String.class, new HashMap<String, Object>());
+        System.out.println("[Acess Token returned data] " + retData);
+
+        JSONObject jsonObject = JSON.parseObject(retData);
+        String accessToken = jsonObject.getString("access_token");
+        String jsapiTicketUrl = String.format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi", accessToken);
+        retData = restTemplate.getForObject(jsapiTicketUrl, String.class, new HashMap<String, Object>());
+        System.out.println("[jsapiTicketUrl returned data] " + retData);
+
+        jsonObject = JSON.parseObject(retData);
+        String jsapi_ticket = jsonObject.getString("ticket");
+
+        String url = "http://cai.songdatech.com/crab/?buy_type=card";
+        Map<String, String> ret = sign(jsapi_ticket, url);
+        for (Map.Entry entry : ret.entrySet()) {
+            System.out.println(entry.getKey() + ", " + entry.getValue());
+        }
+
+        /**
+         * {
+         * debug: true,
+         * appId: "wxa92ba20a1d597040",
+         * timestamp: 1441425346,
+         * nonceStr: "b577850e-278f-4567-9163-d7baf2616aa8",
+         * signature: "920580e1258ec45c115287b44093158249ba3978",
+         * jsApiList: [
+         * "checkJsApi",
+         * "onMenuShareTimeline",
+         * "onMenuShareAppMessage",
+         * "onMenuShareQQ",
+         * "onMenuShareWeibo",
+         * "hideMenuItems",
+         * "showMenuItems",
+         * "hideAllNonBaseMenuItem",
+         * "showAllNonBaseMenuItem",
+         * "translateVoice",
+         * "startRecord",
+         * "stopRecord",
+         * "onRecordEnd",
+         * "playVoice",
+         * "pauseVoice",
+         * "stopVoice",
+         * "uploadVoice",
+         * "downloadVoice",
+         * "chooseImage",
+         * "previewImage",
+         * "uploadImage",
+         * "downloadImage",
+         * "getNetworkType",
+         * "openLocation",
+         * "getLocation",
+         * "hideOptionMenu",
+         * "showOptionMenu",
+         * "closeWindow",
+         * "scanQRCode",
+         * "chooseWXPay",
+         * "openProductSpecificView",
+         * "addCard",
+         * "chooseCard",
+         * "openCard"
+         * ]
+         * }
+         */
+        String[] jsApiList = {"checkJsApi",
+                "onMenuShareTimeline",
+                "onMenuShareAppMessage",
+                "onMenuShareQQ",
+                "onMenuShareWeibo",
+                "hideMenuItems",
+                "showMenuItems",
+                "hideAllNonBaseMenuItem",
+                "showAllNonBaseMenuItem",
+                "translateVoice",
+                "startRecord",
+                "stopRecord",
+                "onRecordEnd",
+                "playVoice",
+                "pauseVoice",
+                "stopVoice",
+                "uploadVoice",
+                "downloadVoice",
+                "chooseImage",
+                "previewImage",
+                "uploadImage",
+                "downloadImage",
+                "getNetworkType",
+                "openLocation",
+                "getLocation",
+                "hideOptionMenu",
+                "showOptionMenu",
+                "closeWindow",
+                "scanQRCode",
+                "chooseWXPay",
+                "openProductSpecificView",
+                "addCard",
+                "chooseCard",
+                "openCard"
+        };
+        config = new JSONObject();
+        config.put("debug", false);
+        config.put("appId", PropertyHolder.APPID);
+        config.put("nonceStr", ret.get("nonceStr"));
+        config.put("timestamp", ret.get("timestamp"));
+        config.put("signature", ret.get("signature"));
+        config.put("jsApiList", jsApiList);
+        return config;
+    }
+
+
     public static void main(String[] args) {
         RestTemplate restTemplate = new RestTemplate();
         String getAccessTokenUrl = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s", PropertyHolder.APPID, PropertyHolder.APPSECRET);
@@ -38,8 +164,6 @@ class Sign {
             System.out.println(entry.getKey() + ", " + entry.getValue());
         }
     }
-
-    ;
 
     public static Map<String, String> sign(String jsapi_ticket, String url) {
         Map<String, String> ret = new HashMap<String, String>();

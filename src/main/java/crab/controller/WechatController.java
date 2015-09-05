@@ -1,7 +1,9 @@
 package crab.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import crab.service.MycaiService;
+import crab.util.Sign;
 import crab.util.SignUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -60,6 +62,13 @@ public class WechatController {
     @ResponseBody
     String test(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return "test";
+    }
+
+    @RequestMapping(value = "wxconfig", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONObject wxconfig(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return Sign.getWXConfig();
     }
 
 }
