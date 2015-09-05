@@ -153,4 +153,13 @@ public class ProductDao {
     public void changeCardcodeOwner(String code, String fromOpenid, String toOpenid) {
         sessionFactory.getCurrentSession().createQuery(String.format("update CardCode set openid='%s' where code='%s' and openid='%s'", toOpenid, code, fromOpenid)).executeUpdate();
     }
+
+    public CardCode getCardByCodeAndPassword(String cardcode, String password) {
+        return (CardCode) sessionFactory.getCurrentSession().createQuery(String.format("from CardCode where code='%s' and password='%s'", cardcode, password)).uniqueResult();
+
+    }
+
+    public void deleteCardcode(Integer cardId) {
+        sessionFactory.getCurrentSession().createQuery(String.format("delete CardCode where id=%d", cardId)).executeUpdate();
+    }
 }

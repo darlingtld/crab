@@ -5,67 +5,69 @@ var adminModule = angular.module('AdminModule', ['ngRoute']);
 var app = '/crab';
 var cdata = {
     "卡券": {
-        "礼品卡": "category/lipinka",
-    },
-    "蔬商水果": {
-        "叶商类": "category/yecailei",
-        "根茎类": "category/genjinglei",
-        "茄果类": "category/qieguolei",
-        "豆类": "category/doulei",
-        "葱姜蒜": "category/congjiangsuan",
-        "菌类": "category/junlei",
-        "特商": "category/tecai"
-    },
-    "禽肉蛋类": {
-        "猪肉": "category/zhurou",
-        "羊肉": "category/yangrou",
-        "牛肉": "category/niurou",
-        "鸡肉": "category/jirou",
-        "鸭肉": "category/yarou",
-        "禽类": "category/qinlei",
-        "禽蛋类": "category/qindanlei",
-        "熟食加工": "category/shushijiagong"
-    },
-    "水产冻货": {
-        "海鲜水产": "category/haixianshuichan",
-        "鱼丸火锅": "category/yuwanhuoguo",
-    },
-    "米面粮油": {
-        "大米": "category/dami",
-        "面粉面条": "category/mianfenmiantiao",
-        "食用油": "category/shiyongyou",
-        "杂粮": "category/zaliang",
-        "面点": "category/miandian",
-        "烘焙佐料": "category/hongbeizuoliao",
-    },
-    "调料其他": {
-        "调味品": "category/tiaoweipin",
-        "粉丝粉条": "category/fensifentiao",
-        "豆制品": "category/douzhipin",
-        "干货": "category/ganhuo",
-        "调味品": "category/tiaoweipin",
-        "酱油醋": "category/jiangyoucu",
-        "腌商罐头": "category/yancaiguantou"
-    },
-    "餐厨用品": {
-        "纸品湿巾": "category/zhipinshijin",
-        "餐饮用具": "category/canyinyongju",
-    },
-    "酒水饮料": {
-        "饮料": "category/yinliao",
-        "饮用水": "category/yinyongshui",
+        "精品卡": "category/jingpinka",
+        "豪华卡": "category/haohuaka",
+        "至尊卡": "category/zhizunka"
     }
+    //"蔬商水果": {
+    //    "叶商类": "category/yecailei",
+    //    "根茎类": "category/genjinglei",
+    //    "茄果类": "category/qieguolei",
+    //    "豆类": "category/doulei",
+    //    "葱姜蒜": "category/congjiangsuan",
+    //    "菌类": "category/junlei",
+    //    "特商": "category/tecai"
+    //},
+    //"禽肉蛋类": {
+    //    "猪肉": "category/zhurou",
+    //    "羊肉": "category/yangrou",
+    //    "牛肉": "category/niurou",
+    //    "鸡肉": "category/jirou",
+    //    "鸭肉": "category/yarou",
+    //    "禽类": "category/qinlei",
+    //    "禽蛋类": "category/qindanlei",
+    //    "熟食加工": "category/shushijiagong"
+    //},
+    //"水产冻货": {
+    //    "海鲜水产": "category/haixianshuichan",
+    //    "鱼丸火锅": "category/yuwanhuoguo",
+    //},
+    //"米面粮油": {
+    //    "大米": "category/dami",
+    //    "面粉面条": "category/mianfenmiantiao",
+    //    "食用油": "category/shiyongyou",
+    //    "杂粮": "category/zaliang",
+    //    "面点": "category/miandian",
+    //    "烘焙佐料": "category/hongbeizuoliao",
+    //},
+    //"调料其他": {
+    //    "调味品": "category/tiaoweipin",
+    //    "粉丝粉条": "category/fensifentiao",
+    //    "豆制品": "category/douzhipin",
+    //    "干货": "category/ganhuo",
+    //    "调味品": "category/tiaoweipin",
+    //    "酱油醋": "category/jiangyoucu",
+    //    "腌商罐头": "category/yancaiguantou"
+    //},
+    //"餐厨用品": {
+    //    "纸品湿巾": "category/zhipinshijin",
+    //    "餐饮用具": "category/canyinyongju",
+    //},
+    //"酒水饮料": {
+    //    "饮料": "category/yinliao",
+    //    "饮用水": "category/yinyongshui",
+    //}
 }
 
 var tdata = {
     "卡券": "card",
-    "蔬商水果": "shucaishuiguo",
-    "禽肉蛋类": "qinroudanlei",
-    "水产冻货": "shuichandonghuo",
-    "米面粮油": "mimianliangyou",
-    "调料其他": "tiaoliaoqita",
-    "餐厨用品": "canchuyongpin",
-    "酒水饮料": "jiushuiyinliao"
+    //"蔬商水果": "shucaishuiguo",
+    //"禽肉蛋类": "qinroudanlei",
+    //"水产冻货": "shuichandonghuo",
+    //"米面粮油": "mimianliangyou",
+    //"调料其他": "tiaoliaoqita",
+    //"餐厨用品": "canchuyongpin",
+    //"酒水饮料": "jiushuiyinliao"
 }
 
 var isFirst = true;
@@ -96,7 +98,7 @@ adminModule.controller('productController', function ($scope, $http, $routeParam
 
     //console.log(isFirst)
     if (isFirst == true) {
-        setTimeout("objS.val('category/lipinka')", 1000);
+        setTimeout("objS.val('category/jingpinka')", 1000);
         isFirst = false;
     }
 
@@ -539,100 +541,136 @@ adminModule.controller('messageController', function ($scope, $http) {
         $scope.openid2Send = openid;
     }
     $scope.send = function () {
-            var message = {
-                openid: $scope.openid2Send,
-                content: $('#message-body').val(),
-                ts: new Date(),
-                read: false
-            }
-            console.log(message)
-            $http.post(app + '/message/create', message).success(function () {
-                alert('消息发送成功');
-                window.location.href = app + '/admin/manage.html#/message';
-                window.location.reload();
-            }).error(function () {
-                alert('消息发送失败');
-                window.location.href = app + '/admin/manage.html#/message';
-                window.location.reload();
-            });
+        var message = {
+            openid: $scope.openid2Send,
+            content: $('#message-body').val(),
+            ts: new Date(),
+            read: false
         }
+        console.log(message)
+        $http.post(app + '/message/create', message).success(function () {
+            alert('消息发送成功');
+            window.location.href = app + '/admin/manage.html#/message';
+            window.location.reload();
+        }).error(function () {
+            alert('消息发送失败');
+            window.location.href = app + '/admin/manage.html#/message';
+            window.location.reload();
+        });
+    }
 });
 
-adminModule.controller('cardcodeController', function ($scope, $http) {
+adminModule.controller('cardcodeController', function ($scope, $http, $location) {
     $('li[role]').removeClass('active');
     $('li[role="manage_cardcode"]').addClass('active');
     $http.get(app + '/card/get/all').success(function (data) {
         $scope.cardList = data;
     });
+    $http.get(app + '/card/productMap').success(function (data) {
+        $scope.productMap = data;
+    });
+
+    $scope.save = function () {
+        var card = {
+            product: {
+                id: $scope.product.productId
+            },
+            code: $scope.code,
+            password: $scope.password
+        };
+        $http.post(app + '/card/create', card).success(function () {
+            alert('保存成功');
+            location.href = app + '/admin/manage.html#/cardcode';
+            location.reload();
+        }).error(function () {
+            alert('保存失败');
+            location.href = app + '/admin/manage.html#/cardcode';
+            location.reload();
+        });
+    }
+
+    $scope.delete = function (cardId) {
+        if (confirm("确认删除？")) {
+            $http.post(app + '/card/delete/' + cardId, {}).success(function () {
+                alert('删除成功');
+                location.href = app + '/admin/manage.html#/cardcode';
+                location.reload();
+            }).error(function () {
+                alert('删除失败');
+                location.href = app + '/admin/manage.html#/cardcode';
+                location.reload();
+            });
+        }
+    }
 
 
 });
-    adminModule.filter('translate', function () {
-        return function (text, type) {
-            if (!angular.isString(text)) {
-                return text;
-            }
-            var translatedText;
+adminModule.filter('translate', function () {
+    return function (text, type) {
+        if (!angular.isString(text)) {
+            return text;
+        }
+        var translatedText;
 
-            if (type == 't') {
-                for (var key in tdata) {
-                    if (tdata[key].toUpperCase().indexOf(text) != -1) {
+        if (type == 't') {
+            for (var key in tdata) {
+                if (tdata[key].toUpperCase().indexOf(text) != -1) {
+                    //console.log(key + " " + vkey);
+                    translatedText = key;
+                    return translatedText;
+                }
+            }
+        } else {
+            for (var key in cdata) {
+                for (var vkey in cdata[key]) {
+                    if (cdata[key][vkey].toUpperCase().indexOf(text) != -1) {
                         //console.log(key + " " + vkey);
-                        translatedText = key;
+                        translatedText = vkey;
                         return translatedText;
                     }
                 }
-            } else {
-                for (var key in cdata) {
-                    for (var vkey in cdata[key]) {
-                        if (cdata[key][vkey].toUpperCase().indexOf(text) != -1) {
-                            //console.log(key + " " + vkey);
-                            translatedText = vkey;
-                            return translatedText;
-                        }
-                    }
-                }
             }
-        };
-    });
+        }
+    };
+});
 
-    adminModule.filter('tochinese', function () {
-        return function (text) {
-            if (text == true) {
-                return '是'
-            } else {
-                return '否'
-            }
-        };
-    });
+adminModule.filter('tochinese', function () {
+    return function (text) {
+        if (text == true) {
+            return '是'
+        } else {
+            return '否'
+        }
+    };
+});
 
-    adminModule.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider
-            .when('/order', {
-                controller: 'orderController',
-                templateUrl: 'orders.html'
-            })
-            .when('/product/category/:category', {
-                controller: 'productController',
-                templateUrl: 'product.html'
-            })
-            .when('/dispatch', {
-                controller: 'dispatchController',
-                templateUrl: 'dispatch.html'
-            })
-            .when('/coupon', {
-                controller: 'couponController',
-                templateUrl: 'coupon.html'
-            })
-            .when('/message', {
-                controller: 'messageController',
-                templateUrl: 'message.html'
-            })
-            .when('/cardcode', {
-                controller: 'cardcodeController',
-                templateUrl: 'cardcode.html'
-            })
-            .otherwise({
-                redirectTo: '/product/category/lipinka'
-            });
-    }]);
+adminModule.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+        .when('/order', {
+            controller: 'orderController',
+            templateUrl: 'orders.html'
+        })
+        .when('/product/category/:category', {
+            controller: 'productController',
+            templateUrl: 'product.html'
+        })
+        .when('/dispatch', {
+            controller: 'dispatchController',
+            templateUrl: 'dispatch.html'
+        })
+        .when('/coupon', {
+            controller: 'couponController',
+            templateUrl: 'coupon.html'
+        })
+        .when('/message', {
+            controller: 'messageController',
+            templateUrl: 'message.html'
+        })
+        .when('/cardcode', {
+            controller: 'cardcodeController',
+            templateUrl: 'cardcode.html'
+        })
+        .otherwise({
+            redirectTo: '/product/category/jingpinka'
+        });
+}]);

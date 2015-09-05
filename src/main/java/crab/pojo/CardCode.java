@@ -13,6 +13,8 @@ public class CardCode {
     private int id;
     @Column(name = "code")
     private String code;
+    @Column(name = "password")
+    private String password;
     @Column(name = "start_time")
     private Date startTime;
     @Column(name = "end_time")
@@ -32,6 +34,14 @@ public class CardCode {
     private Date consigneeDatetime;
     @Column(name = "buyer_address")
     private String buyerAddress;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getConsignee() {
         return consignee;

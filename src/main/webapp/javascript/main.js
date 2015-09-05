@@ -87,6 +87,18 @@ module.controller('mainController', function ($scope, $location, authService) {
 
 module.controller('navController', function ($scope, $http, $routeParams) {
     goToNav();
+    if (user == undefined || user == null) {
+        var code = getURLParameter('code');
+        $http.get(app + "/user/code/" + code).success(function (data, status, headers, config) {
+            user = data;
+            wechatId = user.openid;
+            $('img.user-icon').attr('src', user.headimgurl);
+            setLocalStorage('wechatid', wechatId);
+        });
+    }
+    if (wechatId == undefined) {
+        wechatId = getLocalStorage('wechatid');
+    }
     var url = app + '/nav/category/' + $routeParams.category;
     $http.get(url).success(function (data, status, headers, config) {
         $scope.productList = data;
@@ -266,7 +278,7 @@ module.controller('confirmController', function ($scope, $http, $location) {
                             }).error(function () {
                                 alert("存货不足");
                                 init();
-                                $location.path('/')
+                                $location.path('/checkout')
                             });
                     }
                 }

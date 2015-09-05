@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.smartcardio.Card;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -77,11 +78,24 @@ public class OrderService {
         order.setBill(jsonObject.toJSONString());
         markUsedCoupon(jsonObject.getString("usedCoupon"));
         JSONArray items = jsonObject.getJSONArray("items");
+
+        List<CardCode> cardCode2BuyList = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             int amount = items.getJSONObject(i).getInteger("amount");
             for (int j = 0; j < amount; j++) {
-                saveCrabCardIfAny(items.getJSONObject(i).getInteger("productId"), user.getOpenid());
+//                saveCrabCardIfAny(items.getJSONObject(i).getInteger("productId"), user.getOpenid());
+                if (isItemTypeOfCard(items.getJSONObject(i).getInteger("productId"))) {
+                    CardCode cardCode = productDao.getUnusedCardCode(items.getJSONObject(i).getInteger("productId"));
+                    if (cardCode == null) {
+                        throw new RuntimeException("存货不足");
+                    } else {
+                        cardCode2BuyList.add(cardCode);
+                    }
+                }
             }
+        }
+        for (CardCode cardCode : cardCode2BuyList) {
+            productDao.markUnusedCardCode4User(cardCode.getId(), user.getOpenid());
         }
         orderDao.save(order);
     }

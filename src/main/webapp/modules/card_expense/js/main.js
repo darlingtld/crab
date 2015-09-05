@@ -3,11 +3,51 @@
  */
 var mainModule = angular.module('MainModule', ['ngRoute']);
 var app = '/crab';
+var user;
+var wechatId;
 
-mainModule.controller('expenseController', function ($scope, $http, $location) {
+mainModule.service('authService', function ($http) {
+    this.getUserInfo = function (callback) {
+        if (user != undefined && user != null) {
+            wechatId = user.openid;
+            $('img.user-icon').attr('src', user.headimgurl);
+            if (callback && typeof(callback) === "function") {
+                callback();
+            }
+        } else {
+            var code = getURLParameter('code');
+            $http.get(app + "/user/code/" + code).success(function (data, status, headers, config) {
+                user = data;
+                wechatId = user.openid;
+                $('img.user-icon').attr('src', user.headimgurl);
+                $http.post(app + "/user/save_or_update", JSON.stringify(user)).success(function (data, status, headers, config) {
+                    user = data;
+                    if (callback && typeof(callback) === "function") {
+                        callback();
+                    }
+                });
+            });
+        }
+    };
+});
+
+mainModule.controller('expenseController', function ($scope, $http, $location, authService) {
+    authService.getUserInfo();
+    if (user == undefined || user == null) {
+        var code = getURLParameter('code');
+        $http.get(app + "/user/code/" + code).success(function (data, status, headers, config) {
+            user = data;
+            wechatId = user.openid;
+            $('img.user-icon').attr('src', user.headimgurl);
+            setLocalStorage('wechatid', wechatId);
+        });
+    }
+    if (wechatId == undefined) {
+        wechatId = getLocalStorage('wechatid');
+    }
     $scope.confirm = function () {
         console.log($scope.cardcode);
-        $location.path('/delivery/' + $scope.cardcode);
+        $location.path('/delivery/' + $scope.cardcode + '/' + $scope.password);
 
     };
     $scope.cancel = function () {
@@ -15,8 +55,22 @@ mainModule.controller('expenseController', function ($scope, $http, $location) {
     };
 });
 
-mainModule.controller('deliveryController', function ($scope, $http, $location, $routeParams) {
-    $http.post(app + '/card/check/' + $routeParams.cardcode, {}).success(function () {
+mainModule.controller('deliveryController', function ($scope, $http, $location, $routeParams, authService) {
+    authService.getUserInfo();
+    if (user == undefined || user == null) {
+        var code = getURLParameter('code');
+        $http.get(app + "/user/code/" + code).success(function (data, status, headers, config) {
+            user = data;
+            wechatId = user.openid;
+            $('img.user-icon').attr('src', user.headimgurl);
+            setLocalStorage('wechatid', wechatId);
+        });
+    }
+    if (wechatId == undefined) {
+        wechatId = getLocalStorage('wechatid');
+    }
+
+    $http.post(app + '/card/check/' + $routeParams.cardcode + '/' + $routeParams.password, {}).success(function () {
         $('div.fade').remove();
     }).error(function () {
         alert('该提货券不存在或已被使用');
@@ -39,11 +93,13 @@ mainModule.controller('deliveryController', function ($scope, $http, $location, 
     $scope.confirm = function () {
         //$scope.card.code = $routeParams.cardcode;
         $scope.card.consigneeDatetime = Date.parse($scope.card.consigneeDatetime);
+        $scope.card.openid = wechatId;
         console.log($scope.card);
         $('body').html('<h3 class="text-center">提交订单中</h3>');
         $http.post(app + '/card/expense', $scope.card).success(function () {
             alert('提交成功');
             $('body').html('<h3 class="text-center">提交成功</h3>');
+            location.href = app + '/modules/card_expense/index.html#/expense';
         });
     }
 });
@@ -54,7 +110,7 @@ mainModule.config(['$routeProvider', function ($routeProvider) {
             controller: 'expenseController',
             templateUrl: 'expense.html'
         })
-        .when('/delivery/:cardcode', {
+        .when('/delivery/:cardcode/:password', {
             controller: 'deliveryController',
             templateUrl: 'delivery.html'
         })

@@ -19,7 +19,8 @@
                 <span>提货码<span class="code" ng-bind="cardcode"></span>
                     <button ng-if="card.used==false" class="btn btn-success btn-sm" style="margin-left: 15px;"
                             data-toggle="modal" data-target="#presentDialog">转赠
-                    </button>
+                    </button><br>
+                    <span>提货密码<span class="code" ng-bind="card.password"></span>
                     <span ng-if="card.used==true" style="color: red;">(已使用)</span>
                 </span>
             </div>

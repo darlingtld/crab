@@ -1,14 +1,17 @@
 <div class="container">
-    <!--<button id="add_coupon" class="menu-product btn btn-info btn-sm" ng-click="create()" data-toggle="modal"-->
-    <!--data-target="#createDialog">发放卡券-->
-    <!--</button>-->
+    <button id="add_coupon" class="menu-product btn btn-info btn-sm" ng-click="create()" data-toggle="modal"
+            data-target="#createDialog">创建提货券
+    </button>
     <!--<button id="export_coupon" class="btn btn-success btn-sm export_button hidden" ng-click="export()">导出Excel</button>-->
     <table class="table table-bordered table-hover table-responsive">
         <thead>
         <tr>
             <!--<th ng-click="f='owner'; rev=!rev">所有者 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>-->
             <!--</th>-->
-            <th ng-click="f='type'; rev=!rev">产品 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></th>
+            <th ng-click="f='name'; rev=!rev">产品 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></th>
+            <th ng-click="f='code'; rev=!rev">提货码 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span></th>
+            <th ng-click="f='password'; rev=!rev">提货密码 <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+            </th>
             <th ng-click="f='description'; rev=!rev">描述 <span class="glyphicon glyphicon-sort"
                                                               aria-hidden="true"></span>
             </th>
@@ -17,6 +20,9 @@
             </th>
             <th ng-click="f='endTime'; rev=!rev">结束时间 <span class="glyphicon glyphicon-sort"
                                                             aria-hidden="true"></span>
+            </th>
+            <th ng-click="f='openid'; rev=!rev">所属用户 <span class="glyphicon glyphicon-sort"
+                                                           aria-hidden="true"></span>
             </th>
             <th ng-click="f='used'; rev=!rev">已使用 <span class="glyphicon glyphicon-sort"
                                                         aria-hidden="true"></span>
@@ -33,24 +39,69 @@
             <th ng-click="f='buyerAddress'; rev=!rev">收货地址 <span class="glyphicon glyphicon-sort"
                                                                  aria-hidden="true"></span>
             </th>
+            <th>操作
+            </th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="card in cardList | orderBy: f : rev">
             <!--<td ng-bind="card.openid"></td>-->
             <td ng-bind="card.product.name"></td>
+            <td ng-bind="card.code"></td>
+            <td ng-bind="card.password"></td>
             <td ng-bind="card.product.description"></td>
             <td ng-bind="card.startTime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
             <td ng-bind="card.endTime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
+            <td ng-bind="card.openid"></td>
             <td ng-bind="card.used | tochinese"></td>
             <td ng-bind="card.consignee"></td>
             <td ng-bind="card.consigneeContact"></td>
             <td ng-bind="card.consigneeDatetime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
             <td ng-bind="card.buyerAddress"></td>
+            <td>
+                <button class="btn btn-danger btn-sm" ng-click="delete(card.id)">删除</button>
+            </td>
         </tr>
         </tbody>
     </table>
 
+</div>
+
+<div id="createDialog" class="modal fade" method="update" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+
+                <h3 class="title">创建提货券</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="input-group input-group">
+                    <span class="input-group-addon">券的种类:</span>
+                    <select id="type" ng-model="product"
+                            ng-options="t.description for t in productMap track by t.productId"
+                            class="form-control" style="color: red;">
+                        <option value="">--- 请选择 ---</option>
+                    </select>
+                </div>
+
+                <div class="input-group input-group">
+                    <span class="input-group-addon">提货券码:</span>
+                    <input type="text" class="form-control" ng-model="code">
+                </div>
+                <div class="input-group input-group">
+                    <span class="input-group-addon">提货密码:</span>
+                    <input type="text" class="form-control" ng-model="password">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success" ng-click="save()">保存</a>
+                <a href="#" class="btn" data-dismiss="modal">关闭</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 

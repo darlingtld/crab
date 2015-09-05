@@ -299,6 +299,14 @@ public class ProductService {
 
     @Transactional
     public void saveCardCode(CardCode cardCode) {
+        if (cardCode.getStartTime() == null) {
+            cardCode.setStartTime(new Date());
+        }
+        if (cardCode.getEndTime() == null) {
+            Date endTime = new Date();
+            endTime.setYear(2020);
+            cardCode.setEndTime(endTime);
+        }
         productDao.saveCardCode(cardCode);
     }
 
@@ -312,6 +320,9 @@ public class ProductService {
         CardCode cardCodeInDB = productDao.getCardByCode(cardcode.getCode());
         if (cardCodeInDB != null && !cardCodeInDB.isUsed()) {
             cardCodeInDB.setUsed(true);
+            if (cardcode.getOpenid() != null) {
+                cardCodeInDB.setOpenid(cardcode.getOpenid());
+            }
             cardCodeInDB.setConsignee(cardcode.getConsignee());
             cardCodeInDB.setConsigneeContact(cardcode.getConsigneeContact());
             cardCodeInDB.setConsigneeDatetime(cardcode.getConsigneeDatetime());
@@ -323,8 +334,8 @@ public class ProductService {
     }
 
     @Transactional
-    public void checkCardExistence(String cardcode) {
-        CardCode cardCode = productDao.getCardByCode(cardcode);
+    public void checkCardExistence(String cardcode, String password) {
+        CardCode cardCode = productDao.getCardByCodeAndPassword(cardcode, password);
         if (cardCode == null) {
             throw new RuntimeException("该提货券不存在");
         }
@@ -357,5 +368,25 @@ public class ProductService {
         } else {
             throw new RuntimeException("wrong format");
         }
+    }
+
+    @Transactional
+    public JSONArray getProductMap() {
+        List<Product> productList = productDao.getList(Category.JINGPINKA.toString());
+        productList.addAll(productDao.getList(Category.HAOHUAKA.toString()));
+        productList.addAll(productDao.getList(Category.ZHIZUNKA.toString()));
+        JSONArray jsonArray = new JSONArray();
+        for (Product product : productList) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("productId", product.getId());
+            jsonObject.put("description", String.format("[%s] %s %s元", product.getName(), product.getDescription(), product.getPrice()));
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
+    }
+
+    @Transactional
+    public void deleteCardcode(Integer cardId) {
+        productDao.deleteCardcode(cardId);
     }
 }

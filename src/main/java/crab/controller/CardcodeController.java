@@ -1,5 +1,6 @@
 package crab.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import crab.pojo.CardCode;
 import crab.service.ProductService;
 import org.slf4j.Logger;
@@ -20,11 +21,11 @@ public class CardcodeController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/check/{cardcode}", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/check/{cardcode}/{password}", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public
     @ResponseBody
-    void checkCard(@PathVariable("cardcode") String cardcode, HttpServletResponse response) {
-        productService.checkCardExistence(cardcode);
+    void checkCard(@PathVariable("cardcode") String cardcode, @PathVariable("password") String password, HttpServletResponse response) {
+        productService.checkCardExistence(cardcode, password);
     }
 
     @RequestMapping(value = "/expense", method = RequestMethod.POST, headers = "Content-Type=application/json")
@@ -53,6 +54,27 @@ public class CardcodeController {
     @ResponseBody
     void expenseCard(@PathVariable("presenturl") String presentUrl, HttpServletResponse response) {
         productService.givePresent(presentUrl);
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    public
+    @ResponseBody
+    void createCard(@RequestBody CardCode cardCode) {
+        productService.saveCardCode(cardCode);
+    }
+
+    @RequestMapping(value = "/delete/{cardId}", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    public
+    @ResponseBody
+    void deleteCard(@PathVariable("cardId") Integer cardId) {
+        productService.deleteCardcode(cardId);
+    }
+
+    @RequestMapping(value = "/productMap", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONArray getProductMap() {
+        return productService.getProductMap();
     }
 
 }
