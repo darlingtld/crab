@@ -404,8 +404,8 @@ adminModule.controller('orderController', function ($scope, $http) {
         $('#userId').val(order.userId);
         $('#orderTs').val(order.orderTs);
         $('#deliveryTs').val(order.deliveryTs);
-        $('#shopInfo').val(order.shopInfo);
-        $('#shopAddress').val(order.shopAddress);
+        $('#shopInfo').val(order.buyerInfo);
+        $('#buyerAddress').val(order.buyerAddress);
         $('#orderStatus').val(order.status);
         $('#consignee').val(order.consignee);
         $('#consigneeContact').val(order.consigneeContact);
@@ -422,8 +422,8 @@ adminModule.controller('orderController', function ($scope, $http) {
             }
         }
         order.deliveryTs = $('#deliveryTs').val();
-        order.shopInfo = $('#shopInfo').val();
-        order.shopAddress = $('#shopAddress').val();
+        order.buyerInfo = $('#buyerInfo').val();
+        order.buyerAddress = $('#buyerAddress').val();
         order.consignee = $('#consignee').val();
         order.consigneeContact = $('#consigneeContact').val();
         order.status = $('#orderStatus').val();
